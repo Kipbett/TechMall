@@ -8,6 +8,7 @@
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/card_bg.xml" value="0.1945" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/et_bg.xml" value="0.22" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/img_bg.xml" value="0.22" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_add_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_edit.xml" value="0.1" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_frags.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_login.xml" value="0.22447916666666667" />
@@ -17,7 +18,8 @@
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_seller_products.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/categories_layout.xml" value="0.53875" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/edit_dialog.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/fragment_comp_edit.xml" value="0.1" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/fragment_comp_edit.xml" value="0.22" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/fragment_edit_phone.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/fragment_fridge.xml" value="0.22" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/fragment_home_theater.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/fragment_laptop.xml" value="0.2" />

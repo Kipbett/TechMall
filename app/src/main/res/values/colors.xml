@@ -11,4 +11,6 @@
     <color name="purple">#700f6a</color>
     <color name="yellow">#FFF200</color>
     <color name="green">#00FF55</color>
+    <color name="prim">#f2059b</color>
+
 </resources>

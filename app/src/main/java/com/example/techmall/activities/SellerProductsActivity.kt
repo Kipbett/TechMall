@@ -1,5 +1,6 @@
 package com.example.techmall.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -26,6 +27,8 @@ class SellerProductsActivity : AppCompatActivity() {
 
         add_button.setOnClickListener(View.OnClickListener {
             Toast.makeText(this, "Add Item", Toast.LENGTH_LONG).show()
+            var intent = Intent(this, AddItemActivity::class.java)
+            startActivity(intent)
         })
 
         product_list = ArrayList()

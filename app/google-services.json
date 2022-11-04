@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "225180640775",
+    "project_id": "techmall-9ba9c",
+    "storage_bucket": "techmall-9ba9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225180640775:android:29311c5394782522a32ca2",
+        "android_client_info": {
+          "package_name": "com.example.techmall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225180640775-l785ijii9pcke2qec9tvj4p2gs45alg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANCHLP1D5lUjHAZPhwO_MMrVNvUbhNj6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225180640775-l785ijii9pcke2qec9tvj4p2gs45alg5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

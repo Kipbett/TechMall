@@ -19,7 +19,10 @@
         android:theme="@style/Theme.TechMall"
         tools:targetApi="31">
         <activity
-            android:name=".AddItemActivity"
+            android:name=".activities.NewUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AddItemActivity"
             android:exported="false" />
         <activity
             android:name=".activities.EditActivity"

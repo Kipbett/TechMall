@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.AddPhoneFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/new_phone_image"
+                android:layout_height="200dp"
+                android:layout_width="200dp"
+                android:src="@drawable/ic_baseline_edit_24"
+                android:layout_gravity="center"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_phone_brand"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_phone_image">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Brand"
+                    android:gravity="center"
+                    android:id="@+id/new_phone_brand_et"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_phone_model"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_phone_brand">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Model"
+                    android:gravity="center"
+                    android:id="@+id/new_phone_model_et"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_phone_os"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_phone_model">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Operating System Version"
+                    android:gravity="center"
+                    android:id="@+id/new_phone_os_et"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_phone_battery"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_phone_os">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Battery"
+                    android:gravity="center"
+                    android:id="@+id/new_phone_battery_et"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_phone_memory"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_phone_battery">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="RAM, ROM Details"
+                    android:gravity="center"
+                    android:id="@+id/new_phone_memory_et"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_phone_screen"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_phone_memory">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Display Size"
+                    android:gravity="center"
+                    android:id="@+id/new_phone_screen_et"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_phone_condition"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_phone_screen">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Condition"
+                    android:gravity="center"
+                    android:id="@+id/new_phone_condition_et"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_phone_price"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_phone_condition">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Price"
+                    android:gravity="center"
+                    android:id="@+id/new_phone_price_et"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_phone_stock"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_phone_price">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Available for Sale"
+                    android:gravity="center"
+                    android:id="@+id/new_phone_stock_et"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/add_phone"
+                    app:cornerRadius="20dp"
+                    android:text="ADD"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
+                    app:icon="@drawable/ic_baseline_add_box"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cancel_add_phone"
+                    app:cornerRadius="20dp"
+                    android:gravity="center"
+                    android:text="cancel"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    app:icon="@drawable/ic_baseline_cancel_presentation_24"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/computers"
+            android:icon="@drawable/ic_baseline_add_box"
+            android:title="Computers"/>
+
+        <item android:id="@+id/smart_phones"
+            android:icon="@drawable/ic_baseline_add_box"
+            android:title="Smart Phones"/>
+
+        <item android:id="@+id/gaming_consoles"
+            android:icon="@drawable/ic_baseline_add_box"
+            android:title="Gaming Consoles"/>
+
+        <item android:id="@+id/home_appliances"
+            android:icon="@drawable/ic_baseline_add_box"
+            android:title="Home Appliances"/>
+
+        <item android:id="@+id/home_theaters"
+            android:icon="@drawable/ic_baseline_add_box"
+            android:title="Home Theaters"/>
+    </group>
+
+    <item android:title="Actions">
+        <menu>
+            <item android:id="@+id/about"
+                android:title="About"
+                android:icon="@drawable/ic_login"/>
+
+            <item android:id="@+id/share"
+                android:title="Share"
+                android:icon="@drawable/ic_login"/>
+
+            <item android:id="@+id/settings"
+                android:title="Settings"
+                android:icon="@drawable/ic_login"/>
+
+            <item android:id="@+id/logout"
+                android:title="Logout"
+                android:icon="@drawable/ic_login"/>
+
+        </menu>
+    </item>
+</menu>

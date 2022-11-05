@@ -7,6 +7,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,14 +20,19 @@ import com.example.techmall.adapters.ProductAdapter
 import com.example.techmall.adapters.SuggestedAdapter
 import com.example.techmall.models.CategoreisModel
 import com.example.techmall.models.ProductModel
+import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var category_txt:TextView
     lateinit var recyclerViewCategory: RecyclerView
     lateinit var offer_txt:TextView
     lateinit var recyclerViewOffer:RecyclerView
     lateinit var suggested_txt:TextView
     lateinit var recyclerViewSuggested:RecyclerView
+    lateinit var toolbar:androidx.appcompat.widget.Toolbar
+    lateinit var nav_view:NavigationView
+    lateinit var drawer_layout:DrawerLayout
+
 
     lateinit var categories:ArrayList<CategoreisModel>
     lateinit var products:ArrayList<ProductModel>
@@ -38,7 +46,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var action_bar = supportActionBar
+//        var action_bar = supportActionBar
+
+        toolbar = findViewById(R.id.tool_bar)
+        setSupportActionBar(toolbar)
+        drawer_layout = findViewById(R.id.drawer_layout)
+        nav_view = findViewById(R.id.nav_view)
+        nav_view.setNavigationItemSelectedListener(this)
+
+        var drawer_toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(drawer_toggle)
+        drawer_toggle.syncState()
 
         category_txt = findViewById(R.id.categories)
         offer_txt = findViewById(R.id.offers_tv)
@@ -102,4 +120,29 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.computers -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            R.id.gaming_consoles -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            R.id.smart_phones -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            R.id.home_appliances -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            R.id.home_theaters -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            R.id.logout -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            else -> print("No Selection Made")
+        }
+
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    override fun onBackPressed() {
+
+        if(drawer_layout.isDrawerOpen(GravityCompat.START)){
+            drawer_layout.isDrawerOpen(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
 }
+

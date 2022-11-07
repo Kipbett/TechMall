@@ -180,6 +180,8 @@
                     android:id="@+id/add_comp"
                     app:cornerRadius="20dp"
                     android:text="ADD"
+                    app:icon="@drawable/ic_baseline_add_box"
+                    app:iconGravity="start"
                     android:layout_weight="1"
                     android:layout_margin="5dp"/>
 
@@ -189,6 +191,8 @@
                     android:id="@+id/cancel_add_comp"
                     app:cornerRadius="20dp"
                     android:text="cancel"
+                    app:iconGravity="end"
+                    app:icon="@drawable/ic_baseline_cancel_presentation_24"
                     android:layout_weight="1"
                     android:layout_margin="5dp"/>
             </LinearLayout>

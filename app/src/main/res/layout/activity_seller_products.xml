@@ -7,24 +7,70 @@
     tools:context=".activities.SellerProductsActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/seller_products"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/seller_products"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_button"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/extended_floating_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="28dp"
         android:layout_marginBottom="32dp"
-        android:clickable="true"
+        android:gravity="center"
+        android:text="Actions"
+        app:icon="@drawable/ic_baseline_add_box"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_box" />
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_comp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/prim"
+        android:src="@drawable/ic_baseline_computer_24"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/extended_floating_button"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/add_com_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="40dp"
+        android:text="Add Computer"
+        app:layout_constraintBottom_toTopOf="@+id/extended_floating_button"
+        app:layout_constraintEnd_toStartOf="@+id/fab_add_comp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="96dp"
+        android:backgroundTint="@color/prim"
+        app:fabSize="normal"
+        android:src="@drawable/ic_baseline_phone_android_24"
+        app:layout_constraintBottom_toTopOf="@+id/extended_floating_button"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/add_phone_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="116dp"
+        android:text="Add Phone"
+        app:layout_constraintBottom_toTopOf="@+id/extended_floating_button"
+        app:layout_constraintEnd_toStartOf="@+id/fab_add_comp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

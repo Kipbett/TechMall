@@ -20,7 +20,9 @@ class Products : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products)
 
-        supportActionBar!!.title = intent.getStringExtra("category_name")
+        var category = intent.getStringExtra("category")
+        supportActionBar!!.title = category
+        Toast.makeText(this, category, Toast.LENGTH_SHORT).show()
 
         recycler_view = findViewById(R.id.products_recycler)
 

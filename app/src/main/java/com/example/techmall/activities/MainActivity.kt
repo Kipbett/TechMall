@@ -123,12 +123,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.computers -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
-            R.id.gaming_consoles -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
-            R.id.smart_phones -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
-            R.id.home_appliances -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
-            R.id.home_theaters -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
-            R.id.logout -> Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            R.id.computers ->{
+                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+                var intent = Intent(this, Products::class.java)
+                intent.putExtra("category", "Computers")
+                startActivity(intent)
+            }
+            R.id.gaming_consoles -> {
+                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+                var intent = Intent(this, Products::class.java)
+                intent.putExtra("category", "Game Consoles")
+                startActivity(intent)
+            }
+            R.id.smart_phones -> {
+                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+                var intent = Intent(this, Products::class.java)
+                intent.putExtra("category", "Smart Phones")
+                startActivity(intent)
+            }
+            R.id.home_appliances -> {
+                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+                var intent = Intent(this, Products::class.java)
+                intent.putExtra("category", "Home Appliances")
+                startActivity(intent)
+            }
+            R.id.home_theaters -> {
+                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+                var intent = Intent(this, Products::class.java)
+                intent.putExtra("category", "Home Theaters")
+                startActivity(intent)
+            }
+            R.id.logout -> {
+                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            }
             else -> print("No Selection Made")
         }
 

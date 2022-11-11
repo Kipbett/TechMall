@@ -14,6 +14,7 @@ import com.example.techmall.adapters.SellersAdapter
 import com.example.techmall.models.SellersModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 
 class SellerProductsActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
@@ -26,6 +27,7 @@ class SellerProductsActivity : AppCompatActivity() {
     lateinit var adapter: SellersAdapter
 
     var is_fab_open:Boolean = false
+    var auth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_products)
@@ -101,5 +103,11 @@ class SellerProductsActivity : AppCompatActivity() {
         recyclerView.layoutManager = layout_manager
         recyclerView.adapter = adapter
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        var intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

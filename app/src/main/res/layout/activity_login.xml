@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,45 +8,43 @@
     android:layout_gravity="center"
     android:padding="3dp">
 
-    <EditText
-        android:id="@+id/et_email"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:inputType="textEmailAddress"
-        android:hint="Enter Email"
-        android:gravity="center"
-        android:background="@drawable/et_bg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.361" />
+        android:layout_height="wrap_content"
+        android:id="@+id/user_email_login"
+        android:layout_marginTop="200dp">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Email"
+            android:gravity="center"
+            android:id="@+id/login_email"
+            android:inputType="textEmailAddress"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/et_password"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/et_bg"
-        android:inputType="textPassword"
-        android:hint="Enter Password"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_email"
-        app:layout_constraintVertical_bias="0.104" />
+        android:layout_height="wrap_content"
+        android:id="@+id/user_password_login"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/user_email_login">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Password"
+            android:gravity="center"
+            android:id="@+id/password_login"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout_social"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_password"
-        app:layout_constraintVertical_bias="0.107"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_below="@+id/user_password_login"
+        android:layout_marginTop="30dp">
 
         <ImageView
             android:id="@+id/google_plus"
@@ -60,9 +58,9 @@
             android:id="@+id/facebook"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_weight="1"
             android:padding="5dp"
-            android:src="@drawable/ic_facebook"
-            android:layout_weight="1"/>
+            android:src="@drawable/ic_facebook" />
 
         <ImageView
             android:id="@+id/twitter"
@@ -74,46 +72,37 @@
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/seller_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="30dp"
         android:text="Login"
         app:icon="@drawable/ic_login"
         app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.065" />
+        android:layout_below="@+id/linearLayout_social"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/forgot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:text="Forgot Password?"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up"
-        app:layout_constraintVertical_bias="0.738"
-        tools:layout_editor_absoluteX="3dp" />
+        android:layout_below="@+id/seller_login"
+        android:layout_marginTop="30dp"/>
 
     <TextView
         android:id="@+id/sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
+        android:layout_below="@+id/forgot"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="Don't have an Account, SignUp"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seller_login"
-        tools:layout_editor_absoluteX="-10dp" />
+        android:textSize="20sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

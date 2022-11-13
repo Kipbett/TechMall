@@ -32,6 +32,10 @@ class SellerProductsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_products)
 
+        var user_id = auth.currentUser?.uid
+        if (user_id != null){
+        }
+
         extended_button = findViewById(R.id.extended_floating_button)
         fab_add_comp = findViewById(R.id.fab_add_comp)
         fab_add_phone = findViewById(R.id.fab_add_phone)
@@ -69,7 +73,7 @@ class SellerProductsActivity : AppCompatActivity() {
         fab_add_comp.setOnClickListener(View.OnClickListener {
             Toast.makeText(this, "Add New Computer", Toast.LENGTH_LONG).show()
             var intent = Intent(this, AddItemActivity::class.java)
-            intent.putExtra("comp", "Add Computer")
+            intent.putExtra("add_comp", "Add Computer")
             startActivity(intent)
         })
 
@@ -109,5 +113,14 @@ class SellerProductsActivity : AppCompatActivity() {
         super.onBackPressed()
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        var user_id = auth.currentUser?.uid
+        if(user_id == null){
+            var intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

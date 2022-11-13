@@ -32,7 +32,8 @@
                     android:hint="Computer Brand"
                     android:gravity="center"
                     android:id="@+id/new_comp_brand_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -47,7 +48,8 @@
                     android:hint="Computer Model"
                     android:gravity="center"
                     android:id="@+id/new_comp_model_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -62,7 +64,8 @@
                     android:hint="Operating System Version"
                     android:gravity="center"
                     android:id="@+id/new_comp_os_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -77,7 +80,8 @@
                     android:hint="Computer Processor"
                     android:gravity="center"
                     android:id="@+id/new_comp_processor_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -92,7 +96,8 @@
                     android:hint="RAM, ROM Details"
                     android:gravity="center"
                     android:id="@+id/new_comp_memory_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -107,7 +112,8 @@
                     android:hint="Display Size"
                     android:gravity="center"
                     android:id="@+id/new_comp_screen_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -122,7 +128,8 @@
                     android:hint="If Touch"
                     android:gravity="center"
                     android:id="@+id/new_comp_touch_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -137,7 +144,8 @@
                     android:hint="Condition"
                     android:gravity="center"
                     android:id="@+id/new_comp_condition_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -152,7 +160,8 @@
                     android:hint="Price"
                     android:gravity="center"
                     android:id="@+id/new_comp_price_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -167,7 +176,8 @@
                     android:hint="Available for Sale"
                     android:gravity="center"
                     android:id="@+id/new_comp_stock_et"
-                    android:inputType="textEmailAddress"/>
+                    android:singleLine="true"
+                    android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout

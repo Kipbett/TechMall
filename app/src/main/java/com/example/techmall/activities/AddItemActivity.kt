@@ -16,9 +16,16 @@ class AddItemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_item)
 
+        var category_comp = intent.getStringExtra("add_comp")
+        var category_phone = intent.getStringExtra("add_phone")
+
+
+
         val fragment_manager = supportFragmentManager
         val fragment_transaction = fragment_manager.beginTransaction()
-
-        fragment_transaction.replace(R.id.frags_add, AddPhoneFragment()).commit()
+        if (intent.getStringExtra("add_comp") == category_comp){
+            fragment_transaction.replace(R.id.frags_add, AddCompFragment()).commit()
+        } else if (intent.getStringExtra("add_phone") == category_phone)
+            fragment_transaction.replace(R.id.frags_add, AddPhoneFragment()).commit()
     }
 }

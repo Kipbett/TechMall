@@ -21,6 +21,7 @@ import com.example.techmall.adapters.SuggestedAdapter
 import com.example.techmall.models.CategoreisModel
 import com.example.techmall.models.ProductModel
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var category_txt:TextView
@@ -155,6 +156,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.logout -> {
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+                FirebaseAuth.getInstance().signOut()
             }
             else -> print("No Selection Made")
         }

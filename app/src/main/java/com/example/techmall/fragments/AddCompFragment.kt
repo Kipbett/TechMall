@@ -114,7 +114,7 @@ class AddCompFragment : Fragment() {
 
                if(image_uri != null){
                    var str_ref:StorageReference = FirebaseStorage.getInstance().reference.child("Products").child("Computers").child(auth.currentUser!!.uid)
-                       .child(p_brand+" "+p_model+"."+getFileExtension(image_uri!!))
+                       .child("$p_brand $p_model.${getFileExtension(image_uri!!)}")
                    str_ref.putFile(image_uri!!).addOnCompleteListener(OnCompleteListener {
                        task ->
                        if (task.isComplete){
@@ -133,7 +133,7 @@ class AddCompFragment : Fragment() {
                    })
 
                } else {
-                   Toast.makeText(activity, "Image Upload Successful\n No Image Was Selected", Toast.LENGTH_SHORT).show()
+                   Toast.makeText(activity, "Image Upload Not Successful\n No Image Was Selected", Toast.LENGTH_SHORT).show()
                }
                 products_model = AddProductModel(p_brand, p_model, p_os, p_processor, p_memory, p_display, p_touch,
                     p_condition, p_price, p_stock)

@@ -11,9 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.techmall.R
 import com.example.techmall.activities.FragsActivity
-import com.example.techmall.activities.ProductReviewActivity
 import com.example.techmall.models.ProductModel
-import org.w3c.dom.Text
 
 class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductAdapterVH> {
 

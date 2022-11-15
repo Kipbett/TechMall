@@ -8,16 +8,16 @@
     android:padding="5dp">
 
     <ImageView
-        android:id="@+id/frag_prod_img"
+        android:id="@+id/comp_prod_img"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:src="@drawable/computer" />
 
     <TextView
-        android:id="@+id/frag_prod_name"
+        android:id="@+id/comp_prod_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/frag_prod_img"
+        android:layout_below="@+id/comp_prod_img"
         android:text="Product Name"
         android:padding="3dp"
         android:textSize="28sp"
@@ -29,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_comp_supplier"
-        android:layout_below="@+id/frag_prod_name"
+        android:id="@+id/lin_comp_supplier"
+        android:layout_below="@+id/comp_prod_name"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -46,7 +46,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_comp_supplier_name"
+            android:id="@+id/comp_supplier_name"
             android:text="Supplier Name"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -57,8 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Descriptions"
-        android:id="@+id/frag_comp_description"
-        android:layout_below="@+id/frag_comp_supplier"
+        android:id="@+id/comp_description"
+        android:layout_below="@+id/lin_comp_supplier"
         android:layout_marginTop="5dp"
         android:textSize="28sp"
         android:gravity="center"
@@ -69,8 +69,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_comp_screen_sizes"
-        android:layout_below="@+id/frag_comp_description"
+        android:id="@+id/lin_comp_screen_size"
+        android:layout_below="@+id/comp_description"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -86,7 +86,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_comp_screen_size"
+            android:id="@+id/comp_screen_size"
             android:text="15.2 Inches"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -97,8 +97,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_comp_store"
-        android:layout_below="@+id/frag_comp_screen_sizes"
+        android:id="@+id/lin_comp_storage"
+        android:layout_below="@+id/lin_comp_screen_size"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -114,7 +114,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_comp_storage"
+            android:id="@+id/comp_storage"
             android:text="8 GB RAM, 500GB ROM SSD"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -125,8 +125,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_comp_processor"
-        android:layout_below="@+id/frag_comp_store"
+        android:id="@+id/lin_comp_processor"
+        android:layout_below="@+id/lin_comp_storage"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -142,7 +142,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_comp_processor_speed"
+            android:id="@+id/comp_processor"
             android:text="Core i5, Dual Core, 2.4GHZ"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -153,8 +153,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_comp_os"
-        android:layout_below="@+id/frag_comp_processor"
+        android:id="@+id/lin_comp_os"
+        android:layout_below="@+id/lin_comp_processor"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -170,7 +170,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_comp_operating_system"
+            android:id="@+id/comp_operating_system"
             android:text="Windows 11"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -181,8 +181,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_comp_touch"
-        android:layout_below="@+id/frag_comp_os"
+        android:id="@+id/lin_comp_touch"
+        android:layout_below="@+id/lin_comp_os"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -198,7 +198,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_comp_touch_screen"
+            android:id="@+id/comp_touch_screen"
             android:text="No"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -206,27 +206,59 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/frag_comp_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/frag_comp_touch"
+        android:orientation="horizontal"
+        android:id="@+id/lin_comp_condition"
+        android:layout_below="@+id/lin_comp_touch"
+        android:layout_marginTop="5dp"
+        android:padding="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Condition"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/condition_view"
+            android:text="New"
+            android:layout_weight="3"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lin_comp_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lin_comp_condition"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:padding="3dp">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_bg"
-            android:text="call seller" />
+            app:cornerRadius="20dp"
+            android:id="@+id/btn_comp_call"
+            android:text="call seller"
+            android:layout_margin="5dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_bg"
-            android:text="text seller" />
+            app:cornerRadius="20dp"
+            android:text="text seller"
+            android:id="@+id/btn_comp_message"
+            android:layout_margin="5dp"/>
     </LinearLayout>
 
 </RelativeLayout>

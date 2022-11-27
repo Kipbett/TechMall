@@ -96,6 +96,7 @@ class NewUserActivity : AppCompatActivity() {
                         }
                         var intent = Intent(this, SellerProductsActivity::class.java)
                         startActivity(intent)
+                        finish()
                     } else
                         Toast.makeText(this, "Failed to create user", Toast.LENGTH_SHORT).show()
                 }

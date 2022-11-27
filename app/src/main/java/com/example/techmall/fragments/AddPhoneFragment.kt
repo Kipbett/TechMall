@@ -109,6 +109,8 @@ class AddPhoneFragment : Fragment() {
                 if (selected_image != null){
                     var str_ref:StorageReference = FirebaseStorage.getInstance().reference.child("Products").child("Smart Phones")
                         .child(auth.currentUser!!.uid).child("$brand $model.${getFileExtension(selected_image!!)}")
+
+                    
                     str_ref.putFile(selected_image!!).addOnCompleteListener(OnCompleteListener {
                         task ->
                         if (task.isComplete){
@@ -127,7 +129,7 @@ class AddPhoneFragment : Fragment() {
                     Toast.makeText(activity, "Image Upload Not Successful\n No Image Was Selected", Toast.LENGTH_SHORT).show()
 
                 add_phone_model = AddPhoneModel(brand, model, os, battery, memory, display, condition,
-                price, stock)
+                price, stock, auth.currentUser!!.uid)
                 db_ref.child("products").child("Smart Phones").push().setValue(add_phone_model)
                     .addOnCompleteListener(OnCompleteListener {
                         task ->
@@ -140,6 +142,7 @@ class AddPhoneFragment : Fragment() {
                     })
                 var intent = Intent(activity, SellerProductsActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
             }
         })
 

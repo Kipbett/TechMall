@@ -129,33 +129,37 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 var intent = Intent(this, Products::class.java)
                 intent.putExtra("category", "Computers")
                 startActivity(intent)
+                finish()
             }
             R.id.gaming_consoles -> {
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
                 var intent = Intent(this, Products::class.java)
                 intent.putExtra("category", "Game Consoles")
                 startActivity(intent)
+                finish()
             }
             R.id.smart_phones -> {
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
                 var intent = Intent(this, Products::class.java)
                 intent.putExtra("category", "Smart Phones")
                 startActivity(intent)
+                finish()
             }
             R.id.home_appliances -> {
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
                 var intent = Intent(this, Products::class.java)
                 intent.putExtra("category", "Home Appliances")
                 startActivity(intent)
+                finish()
             }
             R.id.home_theaters -> {
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
                 var intent = Intent(this, Products::class.java)
                 intent.putExtra("category", "Home Theaters")
                 startActivity(intent)
+                finish()
             }
             R.id.logout -> {
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
                 FirebaseAuth.getInstance().signOut()
             }
             else -> print("No Selection Made")

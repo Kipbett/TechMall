@@ -49,6 +49,7 @@ class AddCompFragment : Fragment() {
     lateinit var cancel_btn:MaterialButton
 
     lateinit var content_resolver:ContentResolver
+    lateinit var image_key:String
 
     var auth = FirebaseAuth.getInstance()
     var db_ref:DatabaseReference = FirebaseDatabase.getInstance().reference
@@ -112,35 +113,14 @@ class AddCompFragment : Fragment() {
                 pd.setMessage("Uploading")
                 pd.show()
 
-               if(image_uri != null){
-                   var str_ref:StorageReference = FirebaseStorage.getInstance().reference.child("Products").child("Computers").child(auth.currentUser!!.uid)
-                       .child("$p_brand $p_model.${getFileExtension(image_uri!!)}")
-                   str_ref.putFile(image_uri!!).addOnCompleteListener(OnCompleteListener {
-                       task ->
-                       if (task.isComplete){
-                           str_ref.downloadUrl.addOnCompleteListener {
-                               task ->
-                               if (task.isSuccessful){
-                                   pd.dismiss()
-                                   Toast.makeText(activity, "Image Upload Successful", Toast.LENGTH_SHORT).show()
-                                   var intent = Intent(activity, SellerProductsActivity::class.java)
-                                   startActivity(intent)
-                               } else {
-                                   Toast.makeText(activity, "Image Upload Unsuccessful", Toast.LENGTH_SHORT).show()
-                               }
-                           }
-                       }
-                   })
 
-               } else {
-                   Toast.makeText(activity, "Image Upload Not Successful\n No Image Was Selected", Toast.LENGTH_SHORT).show()
-               }
                 products_model = AddProductModel(p_brand, p_model, p_os, p_processor, p_memory, p_display, p_touch,
                     p_condition, p_price, p_stock)
                 db_ref.child("products").child("Computers").push().setValue(products_model)
                     .addOnCompleteListener(
                     OnCompleteListener { task ->
                         if (task.isSuccessful){
+
                             Toast.makeText(activity, "$p_brand $p_model\n Added Successfully",
                                 Toast.LENGTH_LONG).show()
                         } else {
@@ -148,6 +128,33 @@ class AddCompFragment : Fragment() {
                                 Toast.LENGTH_LONG).show()
                         }
                     })
+
+//                image_key = db_ref.key!!
+
+                if(image_uri != null){
+                    var str_ref:StorageReference = FirebaseStorage.getInstance().reference.child("Products").child("Computers").child(auth.currentUser!!.uid)
+                        .child(image_key).child("$p_brand $p_model.${getFileExtension(image_uri!!)}")
+                    str_ref.putFile(image_uri!!).addOnCompleteListener(OnCompleteListener {
+                            task ->
+                        if (task.isComplete){
+                            str_ref.downloadUrl.addOnCompleteListener {
+                                    task ->
+                                if (task.isSuccessful){
+                                    pd.dismiss()
+                                    Toast.makeText(activity, "Image Upload Successful", Toast.LENGTH_SHORT).show()
+                                    var intent = Intent(activity, SellerProductsActivity::class.java)
+                                    startActivity(intent)
+                                    requireActivity().finish()
+                                } else {
+                                    Toast.makeText(activity, "Image Upload Unsuccessful", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    })
+
+                } else {
+                    Toast.makeText(activity, "Image Upload Not Successful\n No Image Was Selected", Toast.LENGTH_SHORT).show()
+                }
             }
 
         })
@@ -155,6 +162,7 @@ class AddCompFragment : Fragment() {
         cancel_btn.setOnClickListener(View.OnClickListener {
             var intent = Intent(activity, SellerProductsActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         })
         return view
     }

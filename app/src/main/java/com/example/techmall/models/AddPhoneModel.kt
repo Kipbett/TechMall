@@ -10,6 +10,7 @@ class AddPhoneModel {
     var p_condition:String? = null
     var p_price:String? = null
     var p_stock:String? = null
+    var p_uid:String? = null
 
     constructor(
         p_brand: String?,
@@ -20,7 +21,8 @@ class AddPhoneModel {
         p_display: String?,
         p_condition: String?,
         p_price: String?,
-        p_stock: String?
+        p_stock: String?,
+        p_uid:String?
     ) {
         this.p_brand = p_brand
         this.p_model = p_model
@@ -31,6 +33,7 @@ class AddPhoneModel {
         this.p_condition = p_condition
         this.p_price = p_price
         this.p_stock = p_stock
+        this.p_uid = p_uid
     }
 
     constructor()

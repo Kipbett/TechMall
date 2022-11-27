@@ -71,14 +71,12 @@ class SellerProductsActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.seller_products)
 
         fab_add_comp.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this, "Add New Computer", Toast.LENGTH_LONG).show()
             var intent = Intent(this, AddItemActivity::class.java)
             intent.putExtra("add_comp", "Add Computer")
             startActivity(intent)
         })
 
         fab_add_phone.setOnClickListener(View.OnClickListener {
-            Toast.makeText(this, "Add New Phone", Toast.LENGTH_LONG).show()
             var intent = Intent(this, AddItemActivity::class.java)
             intent.putExtra("add_phone", "Add Phone")
             startActivity(intent)
@@ -113,6 +111,7 @@ class SellerProductsActivity : AppCompatActivity() {
         super.onBackPressed()
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     override fun onStart() {
@@ -121,6 +120,7 @@ class SellerProductsActivity : AppCompatActivity() {
         if(user_id == null){
             var intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

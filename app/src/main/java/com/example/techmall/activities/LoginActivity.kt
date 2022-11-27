@@ -41,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful){
                         var intent = Intent(this, SellerProductsActivity::class.java)
                         startActivity(intent)
+                        finish()
                     } else {
                         Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
                     }
@@ -52,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
         signup.setOnClickListener(View.OnClickListener {
             var intent = Intent(this, NewUserActivity::class.java)
             startActivity(intent)
+            finish()
         })
     }
 

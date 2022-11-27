@@ -3,20 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.SmartPhones"
     android:padding="5dp">
 
     <ImageView
-        android:id="@+id/frag_phone_img"
+        android:id="@+id/phone_img"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:src="@drawable/computer" />
 
     <TextView
-        android:id="@+id/frag_phone_name"
+        android:id="@+id/phone_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/frag_phone_img"
+        android:layout_below="@+id/phone_img"
         android:text="Product Name"
         android:padding="3dp"
         android:textSize="28sp"
@@ -28,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_phone_supplier"
-        android:layout_below="@+id/frag_phone_name"
+        android:id="@+id/lin_phone_supplier"
+        android:layout_below="@+id/phone_name"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -45,7 +46,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_phone_supplier_name"
+            android:id="@+id/phone_supplier_name"
             android:text="Supplier Name"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -56,8 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Descriptions"
-        android:id="@+id/frag_phone_description"
-        android:layout_below="@+id/frag_phone_supplier"
+        android:id="@+id/phone_description"
+        android:layout_below="@+id/lin_phone_supplier"
         android:layout_marginTop="5dp"
         android:textSize="28sp"
         android:gravity="center"
@@ -68,8 +69,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_phone_color"
-        android:layout_below="@+id/frag_phone_description"
+        android:id="@+id/lin_phone_color"
+        android:layout_below="@+id/phone_description"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -85,7 +86,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_phone_colour"
+            android:id="@+id/phone_colour"
             android:text="Black"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -93,10 +94,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/frag_phone_screen_sizes"
+        android:id="@+id/lin_phone_screen_sizes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/frag_phone_color"
+        android:layout_below="@+id/lin_phone_color"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:padding="3dp">
@@ -111,7 +112,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/frag_phone_screen_size"
+            android:id="@+id/phone_screen_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -124,8 +125,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_phone_store"
-        android:layout_below="@+id/frag_phone_screen_sizes"
+        android:id="@+id/lin_phone_store"
+        android:layout_below="@+id/lin_phone_screen_sizes"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -141,7 +142,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_phone_storage"
+            android:id="@+id/phone_storage"
             android:text="2 GB RAM, 8GB ROM"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -152,8 +153,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_phone_battery"
-        android:layout_below="@+id/frag_phone_store"
+        android:id="@+id/lin_phone_battery"
+        android:layout_below="@+id/lin_phone_store"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -169,7 +170,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_phone_battery_capacity"
+            android:id="@+id/phone_battery_capacity"
             android:text="5000mAh"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -180,8 +181,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_phone_os"
-        android:layout_below="@+id/frag_phone_battery"
+        android:id="@+id/lin_phone_os"
+        android:layout_below="@+id/lin_phone_battery"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -197,7 +198,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_phone_operating_system"
+            android:id="@+id/phone_operating_system"
             android:text="Windows 11"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -208,8 +209,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/frag_phone_conditions"
-        android:layout_below="@+id/frag_phone_os"
+        android:id="@+id/lin_phone_camera"
+        android:layout_below="@+id/lin_phone_os"
+        android:layout_marginTop="5dp"
+        android:padding="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Camera"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/phone_camera"
+            android:text="Front: 16MP Rear: 64MP"
+            android:layout_weight="3"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/lin_phone_conditions"
+        android:layout_below="@+id/lin_phone_camera"
         android:layout_marginTop="5dp"
         android:padding="3dp">
 
@@ -225,7 +254,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/frag_phone_condition"
+            android:id="@+id/phone_condition"
             android:text="Used/ New"
             android:layout_weight="3"
             android:textColor="@color/black"
@@ -233,26 +262,30 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/frag_phone_button"
+        android:id="@+id/lin_phone_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/frag_phone_conditions"
+        android:layout_below="@+id/lin_phone_conditions"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:padding="3dp">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_bg"
+            android:layout_margin="5dp"
+            android:id="@+id/phone_call"
+            app:cornerRadius="20dp"
             android:text="call seller" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:id="@+id/phone_message"
             android:layout_weight="1"
-            android:background="@drawable/button_bg"
+            app:cornerRadius="20dp"
             android:text="text seller" />
     </LinearLayout>
 

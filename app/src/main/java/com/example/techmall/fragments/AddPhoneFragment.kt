@@ -18,6 +18,7 @@ import android.widget.Toast
 import com.example.techmall.R
 import com.example.techmall.activities.SellerProductsActivity
 import com.example.techmall.models.AddPhoneModel
+import com.example.techmall.models.PhoneDetails
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
@@ -42,6 +43,7 @@ class AddPhoneFragment : Fragment() {
     lateinit var btn_cancel_phone:MaterialButton
 
     var selected_image: Uri? = null
+    lateinit var image_url:String
 
     var SELECT_PICTURE:Int = 200
     lateinit var content_resolver: ContentResolver
@@ -49,6 +51,7 @@ class AddPhoneFragment : Fragment() {
     var db_ref:DatabaseReference = FirebaseDatabase.getInstance().reference
     var auth = FirebaseAuth.getInstance()
     lateinit var add_phone_model:AddPhoneModel
+    lateinit var phone_details:PhoneDetails
 
 
     override fun onCreateView(
@@ -107,17 +110,47 @@ class AddPhoneFragment : Fragment() {
                 pd.show()
 
                 if (selected_image != null){
-                    var str_ref:StorageReference = FirebaseStorage.getInstance().reference.child("Products").child("Smart Phones")
+                    var str_ref:StorageReference = FirebaseStorage.getInstance().reference
+                        .child("Products").child("Smart Phones")
                         .child(auth.currentUser!!.uid).child("$brand $model.${getFileExtension(selected_image!!)}")
 
-                    
                     str_ref.putFile(selected_image!!).addOnCompleteListener(OnCompleteListener {
                         task ->
                         if (task.isComplete){
                             str_ref.downloadUrl.addOnCompleteListener {
                                 task ->
                                 if (task.isSuccessful){
+                                    var img_uri:Uri = task.result
+                                    image_url = img_uri.toString()
+                                    add_phone_model = AddPhoneModel(brand, model, os, battery, memory, display, condition,
+                                        price, stock, auth.currentUser!!.uid, image_url, "Smart Phones")
+                                    phone_details = PhoneDetails("$brand $model", image_url, stock, price)
+                                    db_ref.child("products").push().setValue(add_phone_model)
+                                        .addOnCompleteListener(OnCompleteListener {
+                                                task ->
+                                            if (task.isSuccessful)
+                                                Toast.makeText(activity, "$brand $model\n Added Successfully",
+                                                    Toast.LENGTH_LONG).show()
+                                            else
+                                                Toast.makeText(activity, "$brand $model\n Not Successfully Added",
+                                                    Toast.LENGTH_LONG).show()
+                                        })
+
+                                    db_ref.child("details").child(auth.currentUser!!.uid).push().setValue(phone_details)
+                                        .addOnCompleteListener(OnCompleteListener {
+                                                task ->
+                                            if (task.isSuccessful)
+                                                Toast.makeText(activity, "Added Successfully",
+                                                    Toast.LENGTH_LONG).show()
+                                            else
+                                                Toast.makeText(activity, "Not Successfully Added",
+                                                    Toast.LENGTH_LONG).show()
+                                        })
                                     pd.dismiss()
+                                    var intent = Intent(activity, SellerProductsActivity::class.java)
+                                    startActivity(intent)
+                                    requireActivity().finish()
+
                                     Toast.makeText(activity, "Image Upload Successful", Toast.LENGTH_SHORT).show()
                                 } else {
                                     Toast.makeText(activity, "Image Upload Unsuccessful", Toast.LENGTH_SHORT).show()
@@ -127,22 +160,6 @@ class AddPhoneFragment : Fragment() {
                     })
                 } else
                     Toast.makeText(activity, "Image Upload Not Successful\n No Image Was Selected", Toast.LENGTH_SHORT).show()
-
-                add_phone_model = AddPhoneModel(brand, model, os, battery, memory, display, condition,
-                price, stock, auth.currentUser!!.uid)
-                db_ref.child("products").child("Smart Phones").push().setValue(add_phone_model)
-                    .addOnCompleteListener(OnCompleteListener {
-                        task ->
-                        if (task.isSuccessful)
-                            Toast.makeText(activity, "$brand $model\n Added Successfully",
-                                Toast.LENGTH_LONG).show()
-                        else
-                            Toast.makeText(activity, "$brand $model\n Not Successfully Added",
-                                Toast.LENGTH_LONG).show()
-                    })
-                var intent = Intent(activity, SellerProductsActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
             }
         })
 

@@ -9,12 +9,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.techmall.R
 import com.example.techmall.adapters.ProductAdapter
+import com.example.techmall.models.PhoneDetails
 import com.example.techmall.models.ProductModel
+import com.google.firebase.database.*
 
 class Products : AppCompatActivity() {
     lateinit var recycler_view:RecyclerView
     lateinit var products_list:ArrayList<ProductModel>
     lateinit var products_adapter:ProductAdapter
+
+    var db_ref = FirebaseDatabase.getInstance().reference
+    lateinit var prod_details:PhoneDetails
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,36 +32,58 @@ class Products : AppCompatActivity() {
         recycler_view = findViewById(R.id.products_recycler)
 
         products_list = ArrayList()
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
+//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
 
         products_adapter = ProductAdapter(this, products_list)
 
         var layout_manager = GridLayoutManager(this, 2)
         recycler_view.layoutManager = layout_manager
         recycler_view.adapter = products_adapter
+
+        db_ref.child("products").addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                products_list.clear()
+                for (data_snapshot in p0.children){
+                    var p_category = data_snapshot.child("p_category").value.toString()
+                    if (p_category.equals(category)){
+                        var image = data_snapshot.child("p_imgurl").value.toString()
+                        var name = "${data_snapshot.child("p_brand").value.toString()} ${data_snapshot.child("p_model").value.toString()}"
+                        var price = "KSH. " + data_snapshot.child("p_price").value.toString()
+                        products_list.add(ProductModel(image, name, price))
+                    }
+                }
+                products_adapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
 
     }
 

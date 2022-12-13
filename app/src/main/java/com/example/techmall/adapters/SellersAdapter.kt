@@ -12,18 +12,23 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
+import com.bumptech.glide.Glide
 import com.example.techmall.R
 import com.example.techmall.activities.EditActivity
 import com.example.techmall.activities.FragsActivity
 import com.example.techmall.adapters.SellersAdapter.*
+import com.example.techmall.models.PhoneDetails
 import com.example.techmall.models.SellersModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class SellersAdapter: RecyclerView.Adapter<SellersAdapter.SellersAdapterViewHolder> {
     var context: Context? = null
-    var seller_products:ArrayList<SellersModel>? = null
+    var seller_products:ArrayList<PhoneDetails>? = null
     lateinit var dialog:Dialog
+    lateinit var fb_user:FirebaseUser
 
-    constructor(context: Context?, seller_products: ArrayList<SellersModel>?) : super() {
+    constructor(context: Context?, seller_products: ArrayList<PhoneDetails>?) : super() {
         this.context = context
         this.seller_products = seller_products
     }
@@ -44,22 +49,17 @@ class SellersAdapter: RecyclerView.Adapter<SellersAdapter.SellersAdapterViewHold
         var view_holder = SellersAdapterViewHolder(view)
         dialog = Dialog(context!!)
         dialog.setContentView(R.layout.edit_dialog)
-
-//        view_holder.seller_edit.setOnClickListener(View.OnClickListener {
-//            var edit_txt:TextView = dialog.findViewById(R.id.edit_product)
-//            var delete_txt:TextView = dialog.findViewById(R.id.delete_product)
-//            var review_txt:TextView = dialog.findViewById(R.id.review_product)
-//            dialog.show()
-//        })
         return view_holder
     }
 
     override fun onBindViewHolder(holder: SellersAdapterViewHolder, position: Int) {
+        fb_user = FirebaseAuth.getInstance().currentUser!!
         var products = seller_products!![position]
-        holder.seller_image.setImageResource(products.prod_image!!)
-        holder.prod_name.text = products.prod_name
-        holder.prod_price.text = products.price
-        holder.prod_stock.text = products.stock
+        Glide.with(context!!).load(products.product_image).into(holder.seller_image)
+        //holder.seller_image.setImageResource(products.p_image!!)
+        holder.prod_name.text = products.product_name
+        holder.prod_price.text = "KSH ${products.product_price}"
+        holder.prod_stock.text = "${products.product_stock} PCS"
 
         holder.seller_edit.setOnClickListener(View.OnClickListener {
             //Toast.makeText(context, "Edit The Product", Toast.LENGTH_LONG).show()

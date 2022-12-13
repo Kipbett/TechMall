@@ -32,7 +32,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Phone Brand"
                     android:gravity="center"
-                    android:id="@+id/new_phone_brand_et"/>
+                    android:id="@+id/new_phone_brand_et"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -46,7 +47,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Phone Model"
                     android:gravity="center"
-                    android:id="@+id/new_phone_model_et"/>
+                    android:id="@+id/new_phone_model_et"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -60,7 +62,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Operating System Version"
                     android:gravity="center"
-                    android:id="@+id/new_phone_os_et"/>
+                    android:id="@+id/new_phone_os_et"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -74,7 +77,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Phone Battery"
                     android:gravity="center"
-                    android:id="@+id/new_phone_battery_et"/>
+                    android:id="@+id/new_phone_battery_et"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -88,7 +92,8 @@
                     android:layout_height="wrap_content"
                     android:hint="RAM, ROM Details"
                     android:gravity="center"
-                    android:id="@+id/new_phone_memory_et"/>
+                    android:id="@+id/new_phone_memory_et"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -102,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Display Size"
                     android:gravity="center"
-                    android:id="@+id/new_phone_screen_et"/>
+                    android:id="@+id/new_phone_screen_et"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -116,7 +122,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Condition"
                     android:gravity="center"
-                    android:id="@+id/new_phone_condition_et"/>
+                    android:id="@+id/new_phone_condition_et"
+                    android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -130,7 +137,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Price"
                     android:gravity="center"
-                    android:id="@+id/new_phone_price_et"/>
+                    android:id="@+id/new_phone_price_et"
+                    android:singleLine="true"
+                    android:inputType="numberSigned"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -144,7 +153,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Available for Sale"
                     android:gravity="center"
-                    android:id="@+id/new_phone_stock_et"/>
+                    android:id="@+id/new_phone_stock_et"
+                    android:singleLine="true"
+                    android:inputType="numberSigned"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout

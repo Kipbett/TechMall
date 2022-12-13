@@ -22,6 +22,10 @@ import com.example.techmall.models.CategoreisModel
 import com.example.techmall.models.ProductModel
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var category_txt:TextView
@@ -42,6 +46,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var category_adapter: CategoryAdapter
     lateinit var offer_adapter:OffersAdapter
     lateinit var suggested_adapter:SuggestedAdapter
+
+    var db_ref = FirebaseDatabase.getInstance().reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,14 +82,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         categories.add(CategoreisModel(R.drawable.computer, "Home Theatre"))
 
         products = ArrayList()
-        products.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-        products.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
 
         category_adapter = CategoryAdapter(this, categories)
         offer_adapter = OffersAdapter(this, categories)
@@ -101,6 +99,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var layout_manager_suggested = GridLayoutManager(this, 2)
         recyclerViewSuggested.layoutManager = layout_manager_suggested
         recyclerViewSuggested.adapter = productAdapter
+
+        db_ref.child("products").addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                products.clear()
+                for (ds in dataSnapshot.children){
+                    var p_image = ds.child("p_imgurl").value.toString()
+                    var p_name = ds.child("p_brand").value.toString() + " " + ds.child("p_model").value.toString()
+                    var p_price = ds.child("p_price").value.toString()
+                    products.add(ProductModel(p_image, p_name, p_price))
+                }
+                productAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(db_error: DatabaseError) {
+                Toast.makeText(applicationContext, "Error: $db_error", Toast.LENGTH_SHORT).show()
+            }
+
+        })
 
     }
 

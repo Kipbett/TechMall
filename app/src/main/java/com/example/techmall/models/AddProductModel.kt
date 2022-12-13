@@ -1,16 +1,19 @@
 package com.example.techmall.models
 
 class AddProductModel {
-    var c_brand:String? = null
-    var c_model:String? = null
-    var c_os:String? = null
-    var c_processor:String? = null
-    var c_memory:String? = null
-    var c_display:String? = null
-    var c_touch:String? = null
-    var c_condition:String? = null
-    var c_price:String? = null
-    var c_stock:String? = null
+    var p_brand:String? = null
+    var p_model:String? = null
+    var p_os:String? = null
+    var p_processor:String? = null
+    var p_memory:String? = null
+    var p_display:String? = null
+    var p_touch:String? = null
+    var p_condition:String? = null
+    var p_price:String? = null
+    var p_stock:String? = null
+    var p_uid: String? = null
+    var p_imgurl:String? = null
+    var p_category:String? = null
 
     constructor(
         c_brand: String?,
@@ -22,18 +25,24 @@ class AddProductModel {
         c_touch: String?,
         c_condition: String?,
         c_price: String?,
-        c_stock: String?
+        c_stock: String?,
+        c_uid: String?,
+        c_imgurl: String?,
+        c_category:String?
     ) {
-        this.c_brand = c_brand
-        this.c_model = c_model
-        this.c_os = c_os
-        this.c_processor = c_processor
-        this.c_memory = c_memory
-        this.c_display = c_display
-        this.c_touch = c_touch
-        this.c_condition = c_condition
-        this.c_price = c_price
-        this.c_stock = c_stock
+        this.p_brand = c_brand
+        this.p_model = c_model
+        this.p_os = c_os
+        this.p_processor = c_processor
+        this.p_memory = c_memory
+        this.p_display = c_display
+        this.p_touch = c_touch
+        this.p_condition = c_condition
+        this.p_price = c_price
+        this.p_stock = c_stock
+        this.p_imgurl = c_imgurl
+        this.p_uid = c_uid
+        this.p_category = c_category
     }
 
     constructor()

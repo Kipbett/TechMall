@@ -22,6 +22,7 @@ import com.example.techmall.R
 import com.example.techmall.activities.AddItemActivity
 import com.example.techmall.activities.SellerProductsActivity
 import com.example.techmall.models.AddProductModel
+import com.example.techmall.models.PhoneDetails
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.internal.EdgeToEdgeUtils
@@ -49,7 +50,7 @@ class AddCompFragment : Fragment() {
     lateinit var cancel_btn:MaterialButton
 
     lateinit var content_resolver:ContentResolver
-    lateinit var image_key:String
+    lateinit var img_url:String
 
     var auth = FirebaseAuth.getInstance()
     var db_ref:DatabaseReference = FirebaseDatabase.getInstance().reference
@@ -59,6 +60,7 @@ class AddCompFragment : Fragment() {
     private var image_uri:Uri? = null
 
     lateinit var products_model:AddProductModel
+    lateinit var product_detail:PhoneDetails
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -113,40 +115,53 @@ class AddCompFragment : Fragment() {
                 pd.setMessage("Uploading")
                 pd.show()
 
-
-                products_model = AddProductModel(p_brand, p_model, p_os, p_processor, p_memory, p_display, p_touch,
-                    p_condition, p_price, p_stock)
-                db_ref.child("products").child("Computers").push().setValue(products_model)
-                    .addOnCompleteListener(
-                    OnCompleteListener { task ->
-                        if (task.isSuccessful){
-
-                            Toast.makeText(activity, "$p_brand $p_model\n Added Successfully",
-                                Toast.LENGTH_LONG).show()
-                        } else {
-                            Toast.makeText(activity, "$p_brand $p_model\n Not Successfully Added",
-                                Toast.LENGTH_LONG).show()
-                        }
-                    })
-
-//                image_key = db_ref.key!!
-
                 if(image_uri != null){
-                    var str_ref:StorageReference = FirebaseStorage.getInstance().reference.child("Products").child("Computers").child(auth.currentUser!!.uid)
-                        .child(image_key).child("$p_brand $p_model.${getFileExtension(image_uri!!)}")
+                    var str_ref:StorageReference = FirebaseStorage.getInstance().reference
+                        .child("Products").child("Computers").child(auth.currentUser!!.uid)
+                        .child("$p_brand $p_model.${getFileExtension(image_uri!!)}")
                     str_ref.putFile(image_uri!!).addOnCompleteListener(OnCompleteListener {
                             task ->
                         if (task.isComplete){
                             str_ref.downloadUrl.addOnCompleteListener {
-                                    task ->
+                                task ->
                                 if (task.isSuccessful){
+                                    var img_uri:Uri = task.result
+                                    img_url = img_uri.toString()
+                                    products_model = AddProductModel(p_brand, p_model, p_os,
+                                        p_processor, p_memory, p_display, p_touch,
+                                        p_condition, p_price, p_stock, auth.currentUser!!.uid, img_url, "Computers")
+                                    product_detail = PhoneDetails("$p_brand $p_model", img_url, p_stock, p_price)
+                                    db_ref.child("products").push().setValue(products_model)
+                                        .addOnCompleteListener(
+                                            OnCompleteListener { task ->
+                                                if (task.isSuccessful){
+
+                                                    Toast.makeText(activity, "$p_brand $p_model\n Added Successfully",
+                                                        Toast.LENGTH_LONG).show()
+                                                } else {
+                                                    Toast.makeText(activity, "$p_brand $p_model\n Not Successfully Added",
+                                                        Toast.LENGTH_LONG).show()
+                                                }
+                                            })
+
+                                    db_ref.child("details").child(auth.currentUser!!.uid).push()
+                                        .setValue(product_detail)
+                                        .addOnCompleteListener(
+                                            OnCompleteListener { task ->
+                                                if (task.isSuccessful){
+
+                                                    Toast.makeText(activity, "Added Successfully",
+                                                        Toast.LENGTH_LONG).show()
+                                                } else {
+                                                    Toast.makeText(activity, "Not Successfully Added",
+                                                        Toast.LENGTH_LONG).show()
+                                                }
+                                            })
+
                                     pd.dismiss()
-                                    Toast.makeText(activity, "Image Upload Successful", Toast.LENGTH_SHORT).show()
                                     var intent = Intent(activity, SellerProductsActivity::class.java)
                                     startActivity(intent)
                                     requireActivity().finish()
-                                } else {
-                                    Toast.makeText(activity, "Image Upload Unsuccessful", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         }

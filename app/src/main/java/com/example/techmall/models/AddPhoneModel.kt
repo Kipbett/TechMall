@@ -1,6 +1,7 @@
 package com.example.techmall.models
 
 class AddPhoneModel {
+
     var p_brand:String? = null
     var p_model:String? = null
     var p_os:String? = null
@@ -11,6 +12,9 @@ class AddPhoneModel {
     var p_price:String? = null
     var p_stock:String? = null
     var p_uid:String? = null
+    var p_imgurl:String? = null
+    var p_category:String? = null
+
 
     constructor(
         p_brand: String?,
@@ -22,7 +26,9 @@ class AddPhoneModel {
         p_condition: String?,
         p_price: String?,
         p_stock: String?,
-        p_uid:String?
+        p_uid: String?,
+        p_imgurl:String?,
+        p_category:String
     ) {
         this.p_brand = p_brand
         this.p_model = p_model
@@ -34,8 +40,7 @@ class AddPhoneModel {
         this.p_price = p_price
         this.p_stock = p_stock
         this.p_uid = p_uid
+        this.p_imgurl = p_imgurl
+        this.p_category = p_category
     }
-
-    constructor()
-
 }

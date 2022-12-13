@@ -2,15 +2,21 @@ package com.example.techmall.models
 
 class SellersModel {
 
-    var prod_image:Int? = null
-    var prod_name:String? = null
-    var price:String? = null
-    var stock:String? = null
+    var p_image:Int? = null
+    var p_brand:String? = null
+    var p_price:String? = null
+    var p_stock:String? = null
 
-    constructor(prod_image: Int?, prod_name:String?, price: String?, stock: String?) {
-        this.prod_image = prod_image
-        this.price = price
-        this.stock = stock
-        this.prod_name = prod_name
+
+
+    constructor(p_image: Int?, p_brand:String?, p_price: String?, p_stock: String?) {
+        this.p_image = p_image
+        this.p_price = p_price
+        this.p_stock = p_stock
+        this.p_brand = p_brand
     }
+
+    constructor()
+
+
 }

@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.techmall.R
 import com.example.techmall.adapters.SellersAdapter
+import com.example.techmall.models.PhoneDetails
 import com.example.techmall.models.SellersModel
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class SellerProductsActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
@@ -23,18 +25,19 @@ class SellerProductsActivity : AppCompatActivity() {
     lateinit var fab_add_phone:FloatingActionButton
     lateinit var add_comp_txt: TextView
     lateinit var add_phone_txt: TextView
-    lateinit var product_list:ArrayList<SellersModel>
+    var product_list:ArrayList<PhoneDetails> = ArrayList()
     lateinit var adapter: SellersAdapter
 
     var is_fab_open:Boolean = false
     var auth = FirebaseAuth.getInstance()
+    var db_ref = FirebaseDatabase.getInstance().reference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_products)
 
         var user_id = auth.currentUser?.uid
-        if (user_id != null){
-        }
+
 
         extended_button = findViewById(R.id.extended_floating_button)
         fab_add_comp = findViewById(R.id.fab_add_comp)
@@ -82,28 +85,35 @@ class SellerProductsActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
-        product_list = ArrayList()
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.film, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.film, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.film, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.film, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.film, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-        product_list.add(SellersModel(R.drawable.truck, "Infinix Hot 7", "KES 20000", "Stock: 30"))
-
         adapter = SellersAdapter(this, product_list)
         var layout_manager = LinearLayoutManager(this)
         recyclerView.layoutManager = layout_manager
         recyclerView.adapter = adapter
+
+        if (user_id != null){
+            db_ref.child("details").child(auth.currentUser!!.uid)
+                .addValueEventListener(object : ValueEventListener{
+                    override fun onDataChange(datasnapshot: DataSnapshot) {
+                        product_list.clear()
+                        for (data_snapshot in datasnapshot.children){
+//                            var id = data_snapshot.key
+                            var image = data_snapshot.child("product_image").value.toString()
+                            var name = data_snapshot.child("product_name").value.toString()
+                            var stock = data_snapshot.child("product_stock").value.toString()
+                            var price = data_snapshot.child("product_price").value.toString()
+
+                            var details = PhoneDetails(name, image, stock, price)
+                            product_list.add(details)
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+                        Toast.makeText(applicationContext, "Error: $p0", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
+        }
 
     }
 
@@ -121,6 +131,35 @@ class SellerProductsActivity : AppCompatActivity() {
             var intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        var user_id = auth.currentUser?.uid
+        if (user_id != null){
+            db_ref.child("details").child("Smart Phones")
+                .child(auth.currentUser!!.uid).addValueEventListener(object: ValueEventListener{
+                    override fun onDataChange(datasnapshot: DataSnapshot) {
+                        product_list.clear()
+                        for (data_snapshot in datasnapshot.children){
+//                            var id = data_snapshot.key
+                            var image = data_snapshot.child("phone_image").value.toString()
+                            var name = data_snapshot.child("phone_name").value.toString()
+                            var stock = data_snapshot.child("phone_stock").value.toString()
+                            var price = data_snapshot.child("phone_price").value.toString()
+
+                            var details = PhoneDetails(name, image, stock, price)
+                            product_list.add(details)
+                        }
+                        adapter.notifyDataSetChanged()
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+                        Toast.makeText(applicationContext, "Error: $p0", Toast.LENGTH_SHORT).show()
+                    }
+
+                })
         }
     }
 }

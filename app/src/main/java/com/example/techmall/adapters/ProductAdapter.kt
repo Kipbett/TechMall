@@ -8,15 +8,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.techmall.R
 import com.example.techmall.activities.FragsActivity
 import com.example.techmall.models.ProductModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductAdapterVH> {
 
     var context:Context? = null
     var product_list:ArrayList<ProductModel>? = null
+    var db_ref = FirebaseDatabase.getInstance().reference
+    lateinit var img_url:String
 
     constructor(context: Context?, product_list: ArrayList<ProductModel>?) : super() {
         this.context = context
@@ -28,8 +36,6 @@ class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductAdapterVH> {
         var product_image:ImageView = itemView.findViewById(R.id.product_image)
         var product_name:TextView = itemView.findViewById(R.id.product_name)
         var product_initial_price:TextView = itemView.findViewById(R.id.product_price)
-        var product_discounted_price:TextView = itemView.findViewById(R.id.product_discounted_price)
-        var product_discount:TextView = itemView.findViewById(R.id.product_discount)
 
     }
 
@@ -40,16 +46,32 @@ class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductAdapterVH> {
 
     override fun onBindViewHolder(holder: ProductAdapterVH, position: Int) {
         var product = product_list!![position]
-        holder.product_image.setImageResource(product.product_image!!)
+        Glide.with(context!!).load(product.product_image).into(holder.product_image)
+        //holder.product_image.setImageResource(product.product_image!!)
         holder.product_name.text = product.product_name
         holder.product_initial_price.text =product.product_initial_price
-        holder.product_discounted_price.text = product.product_discounted_price
-        holder.product_discounted_price.paintFlags = holder.product_discounted_price.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        holder.product_discount.text = product.product_discount_percentage
         holder.itemView.setOnClickListener(View.OnClickListener {
-            var intent = Intent(context, FragsActivity::class.java)
-            intent.putExtra("category", product.prod_category)
-            context!!.startActivity(intent)
+            db_ref.child("products").addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(p0: DataSnapshot) {
+                    for(ds in p0.children){
+                        img_url = ds.child("p_imgurl").value.toString()
+                        if (img_url.equals(product.product_image)){
+                            var intent = Intent(context, FragsActivity::class.java)
+                            intent.putExtra("category", product.prod_category)
+                            intent.putExtra("img_url", img_url)
+                            context!!.startActivity(intent)
+                        } else {
+                            Toast.makeText(context, "Image Url Not Found", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+
+                }
+
+            })
+
         })
     }
 

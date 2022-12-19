@@ -2,29 +2,24 @@ package com.example.techmall.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.techmall.R
-import com.example.techmall.activities.FragsActivity
+import com.example.techmall.activities.LaptopActivity
+import com.example.techmall.activities.SmartPhoneActivity
 import com.example.techmall.models.ProductModel
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductAdapterVH> {
 
     var context:Context? = null
     var product_list:ArrayList<ProductModel>? = null
-    var db_ref = FirebaseDatabase.getInstance().reference
-    lateinit var img_url:String
+    var bundle = Bundle()
 
     constructor(context: Context?, product_list: ArrayList<ProductModel>?) : super() {
         this.context = context
@@ -51,26 +46,18 @@ class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductAdapterVH> {
         holder.product_name.text = product.product_name
         holder.product_initial_price.text =product.product_initial_price
         holder.itemView.setOnClickListener(View.OnClickListener {
-            db_ref.child("products").addValueEventListener(object: ValueEventListener{
-                override fun onDataChange(p0: DataSnapshot) {
-                    for(ds in p0.children){
-                        img_url = ds.child("p_imgurl").value.toString()
-                        if (img_url.equals(product.product_image)){
-                            var intent = Intent(context, FragsActivity::class.java)
-                            intent.putExtra("category", product.prod_category)
-                            intent.putExtra("img_url", img_url)
-                            context!!.startActivity(intent)
-                        } else {
-                            Toast.makeText(context, "Image Url Not Found", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
 
-                override fun onCancelled(p0: DatabaseError) {
-
-                }
-
-            })
+            if (product.prod_category.equals("Smart Phones")){
+                var intent = Intent(context, SmartPhoneActivity::class.java)
+                intent.putExtra("p_category", product.prod_category)
+                intent.putExtra("p_image", product.product_image)
+                context!!.startActivity(intent)
+            } else {
+                var intent = Intent(context, LaptopActivity::class.java)
+                intent.putExtra("p_category", product.prod_category)
+                intent.putExtra("p_image", product.product_image)
+                context!!.startActivity(intent)
+            }
 
         })
     }

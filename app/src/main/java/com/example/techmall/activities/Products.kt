@@ -1,5 +1,6 @@
 package com.example.techmall.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -32,30 +33,6 @@ class Products : AppCompatActivity() {
         recycler_view = findViewById(R.id.products_recycler)
 
         products_list = ArrayList()
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Smart Phone"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
-//        products_list.add(ProductModel(R.drawable.computer, "Computer", "KES 25000", "KES 35000", "15%", "Computer"))
 
         products_adapter = ProductAdapter(this, products_list)
 
@@ -100,5 +77,12 @@ class Products : AppCompatActivity() {
         }
         onBackPressed()
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        var intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

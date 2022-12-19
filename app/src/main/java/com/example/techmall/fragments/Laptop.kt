@@ -11,11 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.example.techmall.R
 import com.example.techmall.activities.MainActivity
 import com.google.android.material.button.MaterialButton
+import com.google.api.Distribution
 
 class Laptop : Fragment() {
 
@@ -30,6 +32,24 @@ class Laptop : Fragment() {
     lateinit var comp_condition:TextView
     lateinit var call_user:MaterialButton
     lateinit var message_user:MaterialButton
+
+    lateinit var supplier_lin:LinearLayout
+    lateinit var comp_supplier:TextView
+    lateinit var description:TextView
+
+    lateinit var lin_desc:LinearLayout
+    lateinit var comp_disp:TextView
+    lateinit var lin_storage:LinearLayout
+    lateinit var comp_store:TextView
+    lateinit var lin_processor:LinearLayout
+    lateinit var comp_proc:TextView
+    lateinit var lin_os:LinearLayout
+    lateinit var comp_osys:TextView
+    lateinit var lin_touch:LinearLayout
+    lateinit var comp_tch:TextView
+    lateinit var lin_condition:LinearLayout
+    lateinit var comp_con:TextView
+    lateinit var lin_button:LinearLayout
 
     private var REQUEST_CALL = 1
     private var SEND_MESSAGE = 0
@@ -52,6 +72,23 @@ class Laptop : Fragment() {
         comp_condition = view.findViewById(R.id.condition_view)
         call_user = view.findViewById(R.id.btn_comp_call)
         message_user = view.findViewById(R.id.btn_comp_message)
+
+        supplier_lin = view.findViewById(R.id.lin_comp_supplier)
+        comp_supplier = view.findViewById(R.id.comp_supplier)
+        description = view.findViewById(R.id.comp_description)
+        lin_desc = view.findViewById(R.id.lin_comp_screen_size)
+        comp_disp = view.findViewById(R.id.comp_display)
+        lin_storage = view.findViewById(R.id.lin_comp_storage)
+        comp_store = view.findViewById(R.id.comp_store)
+        lin_processor = view.findViewById(R.id.lin_comp_processor)
+        comp_proc = view.findViewById(R.id.comp_proc)
+        lin_os = view.findViewById(R.id.lin_comp_os)
+        comp_osys = view.findViewById(R.id.comp_os)
+        lin_touch = view.findViewById(R.id.lin_comp_touch)
+        comp_tch = view.findViewById(R.id.comp_tch)
+        lin_condition = view.findViewById(R.id.lin_comp_condition)
+        comp_con = view.findViewById(R.id.comp_con)
+        lin_button = view.findViewById(R.id.lin_comp_button)
 
         call_user.setOnClickListener(View.OnClickListener {
             callUser()

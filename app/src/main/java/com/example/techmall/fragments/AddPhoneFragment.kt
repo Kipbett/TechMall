@@ -41,6 +41,7 @@ class AddPhoneFragment : Fragment() {
     lateinit var phone_stock:EditText
     lateinit var btn_new_phone:MaterialButton
     lateinit var btn_cancel_phone:MaterialButton
+    lateinit var phone_color:EditText
 
     var selected_image: Uri? = null
     lateinit var image_url:String
@@ -73,6 +74,7 @@ class AddPhoneFragment : Fragment() {
         btn_new_phone = view.findViewById(R.id.add_phone)
         btn_cancel_phone = view.findViewById(R.id.cancel_add_phone)
         phone_image = view.findViewById(R.id.new_phone_image)
+        phone_color = view.findViewById(R.id.new_phone_color_et)
 
 
         phone_image.setOnClickListener(View.OnClickListener {
@@ -99,10 +101,11 @@ class AddPhoneFragment : Fragment() {
             var condition:String = phone_condition.text.toString()
             var price:String = phone_price.text.toString()
             var stock:String = phone_stock.text.toString()
+            var color:String = phone_color.text.toString()
 
             if (TextUtils.isEmpty(brand) || TextUtils.isEmpty(model) || TextUtils.isEmpty(os) || TextUtils.isEmpty(battery) ||
                 TextUtils.isEmpty(memory) || TextUtils.isEmpty(display) || TextUtils.isEmpty(condition) ||
-                TextUtils.isEmpty(price) || TextUtils.isEmpty(stock)){
+                TextUtils.isEmpty(price) || TextUtils.isEmpty(stock) || TextUtils.isEmpty(color)){
                 Toast.makeText(activity, "Fields Cannot Be Empty \n Fill All The Spaces", Toast.LENGTH_LONG).show()
             } else {
                 var pd = ProgressDialog(activity)
@@ -123,7 +126,7 @@ class AddPhoneFragment : Fragment() {
                                     var img_uri:Uri = task.result
                                     image_url = img_uri.toString()
                                     add_phone_model = AddPhoneModel(brand, model, os, battery, memory, display, condition,
-                                        price, stock, auth.currentUser!!.uid, image_url, "Smart Phones")
+                                        price, stock, auth.currentUser!!.uid, image_url, "Smart Phones", color)
                                     phone_details = PhoneDetails("$brand $model", image_url, stock, price)
                                     db_ref.child("products").push().setValue(add_phone_model)
                                         .addOnCompleteListener(OnCompleteListener {

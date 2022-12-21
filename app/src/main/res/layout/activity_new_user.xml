@@ -25,7 +25,25 @@
             android:layout_height="wrap_content"
             android:hint="EMAIL ADDRESS"
             android:gravity="center"
-            android:id="@+id/user_email_et"/>
+            android:id="@+id/user_email_et"
+            android:singleLine="true"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_name"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/user_email">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="USER NAME / COMPANY NAME"
+            android:gravity="center"
+            android:id="@+id/user_name_et"
+            android:singleLine="true"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -33,13 +51,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/user_phone_number"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/user_email">
+        android:layout_below="@+id/user_name">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="PHONE NUMBER"
             android:gravity="center"
-            android:id="@+id/user_phone_et"/>
+            android:id="@+id/user_phone_et"
+            android:singleLine="true"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -53,7 +72,8 @@
             android:layout_height="wrap_content"
             android:hint="ADDRESS"
             android:gravity="center"
-            android:id="@+id/user_address_et"/>
+            android:id="@+id/user_address_et"
+            android:singleLine="true"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -68,7 +88,8 @@
             android:hint="ENTER PASSWORD"
             android:gravity="center"
             android:id="@+id/user_password_et"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:singleLine="true"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -83,47 +104,48 @@
             android:hint="CONFIRM PASSWORD"
             android:gravity="center"
             android:id="@+id/user_confirm_password_et"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:singleLine="true"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/user_confirm_password"
-        android:layout_marginTop="30dp"
-        android:id="@+id/social_sign_up">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_below="@+id/user_confirm_password"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:id="@+id/social_sign_up">-->
 
-        <ImageView
-            android:id="@+id/new_google_plus"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="5dp"
-            android:src="@drawable/ic_google_plus"
-            android:layout_weight="1"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/new_google_plus"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:padding="5dp"-->
+<!--            android:src="@drawable/ic_google_plus"-->
+<!--            android:layout_weight="1"/>-->
 
-        <ImageView
-            android:id="@+id/new_facebook"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="5dp"
-            android:src="@drawable/ic_facebook"
-            android:layout_weight="1"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/new_facebook"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:padding="5dp"-->
+<!--            android:src="@drawable/ic_facebook"-->
+<!--            android:layout_weight="1"/>-->
 
-        <ImageView
-            android:id="@+id/new_twitter"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="5dp"
-            android:src="@drawable/ic_twitter"
-            android:layout_weight="1"/>
-    </LinearLayout>
+<!--        <ImageView-->
+<!--            android:id="@+id/new_twitter"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:padding="5dp"-->
+<!--            android:src="@drawable/ic_twitter"-->
+<!--            android:layout_weight="1"/>-->
+<!--    </LinearLayout>-->
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_signup_btn"
-        android:layout_below="@+id/social_sign_up"
+        android:layout_below="@+id/user_confirm_password"
         android:text="Sign Up"
         app:icon="@drawable/ic_login"
         android:gravity="center"

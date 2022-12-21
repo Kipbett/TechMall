@@ -33,22 +33,40 @@
                     android:hint="Phone Brand"
                     android:gravity="center"
                     android:id="@+id/new_phone_brand_et"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_phone_model"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/new_phone_brand">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Model"
+                android:gravity="center"
+                android:id="@+id/new_phone_model_et"
+                android:singleLine="true"
+                android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/new_phone_model"
+                android:id="@+id/new_phone_color"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/new_phone_brand">
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone Model"
+                    android:hint="Phone Color"
                     android:gravity="center"
-                    android:id="@+id/new_phone_model_et"
-                    android:singleLine="true"/>
+                    android:id="@+id/new_phone_color_et"
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -56,14 +74,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/new_phone_os"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/new_phone_model">
+                android:layout_below="@+id/new_phone_color">
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Operating System Version"
                     android:gravity="center"
                     android:id="@+id/new_phone_os_et"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -78,7 +97,8 @@
                     android:hint="Phone Battery"
                     android:gravity="center"
                     android:id="@+id/new_phone_battery_et"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -93,7 +113,8 @@
                     android:hint="RAM, ROM Details"
                     android:gravity="center"
                     android:id="@+id/new_phone_memory_et"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -108,7 +129,8 @@
                     android:hint="Display Size"
                     android:gravity="center"
                     android:id="@+id/new_phone_screen_et"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -123,7 +145,8 @@
                     android:hint="Condition"
                     android:gravity="center"
                     android:id="@+id/new_phone_condition_et"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -139,7 +162,7 @@
                     android:gravity="center"
                     android:id="@+id/new_phone_price_et"
                     android:singleLine="true"
-                    android:inputType="numberSigned"/>
+                    android:inputType="numberSigned" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

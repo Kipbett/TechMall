@@ -1,18 +1,25 @@
 package com.example.techmall.activities
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.techmall.R
 import com.example.techmall.adapters.CategoryAdapter
 import com.example.techmall.adapters.OffersAdapter
@@ -26,6 +33,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var category_txt:TextView
@@ -37,23 +45,43 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var toolbar:androidx.appcompat.widget.Toolbar
     lateinit var nav_view:NavigationView
     lateinit var drawer_layout:DrawerLayout
+    lateinit var usr_email:TextView
+    lateinit var usr_image:ImageView
+    lateinit var usr_name:TextView
 
 
     lateinit var categories:ArrayList<CategoreisModel>
     lateinit var products:ArrayList<ProductModel>
+
+    var longitude = 0.0
+    var latitude = 0.0
 
     lateinit var productAdapter: ProductAdapter
     lateinit var category_adapter: CategoryAdapter
     lateinit var offer_adapter:OffersAdapter
     lateinit var suggested_adapter:SuggestedAdapter
 
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1
+
     var db_ref = FirebaseDatabase.getInstance().reference
+    var auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 //        var action_bar = supportActionBar
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION)){
+
+            } else {
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+            }
+        } else {
+            getCurrentLocation()
+        }
 
         toolbar = findViewById(R.id.tool_bar)
         setSupportActionBar(toolbar)
@@ -71,6 +99,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerViewSuggested = findViewById(R.id.suggested_recyclerview)
         recyclerViewCategory = findViewById(R.id.categories_recycler)
         recyclerViewOffer = findViewById(R.id.offers_recycler)
+        usr_email = findViewById(R.id.user_email)
+        usr_image = findViewById(R.id.avator)
+        usr_name = findViewById(R.id.user_name)
 
 
         categories = ArrayList()
@@ -118,6 +149,58 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         })
 
+        db_ref.child("users").child(auth.currentUser!!.uid).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                for(ds in p0.children){
+                    var u_image = ds.child("user_image").value.toString()
+                    var user_name = ds.child("user_name").value.toString()
+                    var user_email = ds.child("user+email").value.toString()
+
+                    usr_email.text = user_email
+                    usr_name.text = user_name
+                    Glide.with(applicationContext).load(u_image).into(usr_image)
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (lastKnownLocation != null) {
+            latitude = lastKnownLocation.latitude
+            longitude = lastKnownLocation.longitude
+            // Do something with the location
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            LOCATION_PERMISSION_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)){
+                    getCurrentLocation()
+                } else {
+
+                }
+                return
+            }
+
+            else -> {
+
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

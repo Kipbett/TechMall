@@ -31,8 +31,10 @@ class NewUserActivity : AppCompatActivity() {
     lateinit var signup_button: Button
     lateinit var signin:TextView
     lateinit var user:UserModel
+    lateinit var user_name:EditText
 
     lateinit var content_resolver:ContentResolver
+    lateinit var image_url:String
 
     var auth = FirebaseAuth.getInstance()
     var db = FirebaseDatabase.getInstance()
@@ -53,6 +55,7 @@ class NewUserActivity : AppCompatActivity() {
         user_confirm_password = findViewById(R.id.user_confirm_password_et)
         signup_button = findViewById(R.id.user_signup_btn)
         signin = findViewById(R.id.back_to_login)
+        user_name = findViewById(R.id.user_name_et)
 
         user_profile.setOnClickListener(View.OnClickListener {
             var intent = Intent()
@@ -74,32 +77,33 @@ class NewUserActivity : AppCompatActivity() {
             var address = user_address.text.toString()
             var password = user_password.text.toString()
             var confirm_password = user_confirm_password.text.toString()
+            var u_name = user_name.text.toString()
 
             if (confirm_password != password){
                 Toast.makeText(this, "Passwords don't match", Toast.LENGTH_SHORT).show()
-            } else if(TextUtils.isEmpty(email) || TextUtils.isEmpty(address) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(password)){
+            } else if(TextUtils.isEmpty(email) || TextUtils.isEmpty(address) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(password) || TextUtils.isEmpty(u_name)){
                 Toast.makeText(this, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show()
             }else {
 
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){
-                    task ->
-                    if (task.isSuccessful){
-                        Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-                        user = UserModel(email, address, phone)
-                        var user_id = auth.currentUser?.uid
-                        dbref.child("users").child(user_id!!).setValue(user).addOnCompleteListener(this){
-                            task ->
-                            if (task.isSuccessful){
-                                Toast.makeText(this, "Data Saved Successfully", Toast.LENGTH_SHORT).show()
-                            } else
-                                Toast.makeText(this, "Data Saving Unsuccessful", Toast.LENGTH_SHORT).show()
-                        }
-                        var intent = Intent(this, SellerProductsActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else
-                        Toast.makeText(this, "Failed to create user", Toast.LENGTH_SHORT).show()
-                }
+//                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){
+//                    task ->
+//                    if (task.isSuccessful){
+//                        Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+//                        user = UserModel(email, address, phone, u_name)
+//                        var user_id = auth.currentUser?.uid
+//                        dbref.child("users").child(user_id!!).setValue(user).addOnCompleteListener(this){
+//                            task ->
+//                            if (task.isSuccessful){
+//                                Toast.makeText(this, "Data Saved Successfully", Toast.LENGTH_SHORT).show()
+//                            } else
+//                                Toast.makeText(this, "Data Saving Unsuccessful", Toast.LENGTH_SHORT).show()
+//                        }
+//                        var intent = Intent(this, SellerProductsActivity::class.java)
+//                        startActivity(intent)
+//                        finish()
+//                    } else
+//                        Toast.makeText(this, "Failed to create user", Toast.LENGTH_SHORT).show()
+//                }
 
                 var pd = ProgressDialog(this)
                 pd.setMessage("Saving Data")
@@ -113,6 +117,27 @@ class NewUserActivity : AppCompatActivity() {
                             str_ref.downloadUrl.addOnCompleteListener {
                                     task ->
                                 if (task.isSuccessful){
+                                    var img_url:Uri = task.result
+                                    image_url = img_url.toString()
+                                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){
+                                            task ->
+                                        if (task.isSuccessful){
+                                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
+                                            user = UserModel(email, address, phone, u_name, image_url)
+                                            var user_id = auth.currentUser?.uid
+                                            dbref.child("users").child(user_id!!).setValue(user).addOnCompleteListener(this){
+                                                    task ->
+                                                if (task.isSuccessful){
+                                                    Toast.makeText(this, "Data Saved Successfully", Toast.LENGTH_SHORT).show()
+                                                } else
+                                                    Toast.makeText(this, "Data Saving Unsuccessful", Toast.LENGTH_SHORT).show()
+                                            }
+                                            var intent = Intent(this, SellerProductsActivity::class.java)
+                                            startActivity(intent)
+                                            finish()
+                                        } else
+                                            Toast.makeText(this, "Failed to create user", Toast.LENGTH_SHORT).show()
+                                    }
                                     pd.dismiss()
                                     Toast.makeText(this, "Profile saved successfully", Toast.LENGTH_SHORT)
                                         .show()

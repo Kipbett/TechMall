@@ -14,6 +14,7 @@ class AddPhoneModel {
     var p_uid:String? = null
     var p_imgurl:String? = null
     var p_category:String? = null
+    var p_color:String? = null
 
 
     constructor(
@@ -28,7 +29,8 @@ class AddPhoneModel {
         p_stock: String?,
         p_uid: String?,
         p_imgurl:String?,
-        p_category:String
+        p_category:String,
+        p_color:String?
     ) {
         this.p_brand = p_brand
         this.p_model = p_model
@@ -42,5 +44,6 @@ class AddPhoneModel {
         this.p_uid = p_uid
         this.p_imgurl = p_imgurl
         this.p_category = p_category
+        this.p_color = p_color
     }
 }

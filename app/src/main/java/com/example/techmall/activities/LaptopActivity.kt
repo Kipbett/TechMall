@@ -33,6 +33,7 @@ class LaptopActivity : AppCompatActivity() {
     lateinit var comp_condition: TextView
     lateinit var call_user: MaterialButton
     lateinit var message_user: MaterialButton
+    lateinit var comp_price: TextView
 
     private var REQUEST_CALL = 1
     private var SEND_MESSAGE = 0
@@ -57,6 +58,7 @@ class LaptopActivity : AppCompatActivity() {
         comp_condition = findViewById(R.id.condition_view)
         call_user = findViewById(R.id.btn_comp_call)
         message_user = findViewById(R.id.btn_comp_message)
+        comp_price = findViewById(R.id.price_view)
 
         var image = intent.getStringExtra("p_image")
         var category = intent.getStringExtra("p_category")
@@ -74,14 +76,15 @@ class LaptopActivity : AppCompatActivity() {
                         var p_touch = ds.child("p_touch").value.toString()
                         var p_condition = ds.child("p_condition").value.toString()
                         var p_user = ds.child("p_uid").value.toString()
+                        var price = ds.child("p_price").value.toString()
                         dbref.child("users").addValueEventListener(object : ValueEventListener{
                             override fun onDataChange(p0: DataSnapshot) {
                                 for (ds in p0.children){
                                     if (p_user.equals(ds.key.toString())){
-                                        var u_email = ds.child("user_email").value.toString()
+                                        var u_name = ds.child("user_name").value.toString()
                                         var u_phone = ds.child("user_phone").value.toString()
 
-                                        comp_supplier_name.text = u_email
+                                        comp_supplier_name.text = u_name
                                         number = u_phone
                                     }
                                 }
@@ -101,6 +104,7 @@ class LaptopActivity : AppCompatActivity() {
                         comp_processor.text = p_processor
                         comp_touch.text = p_touch
                         comp_storage.text = p_storage
+                        comp_price.text = "KES $price"
 
                     }
                 }

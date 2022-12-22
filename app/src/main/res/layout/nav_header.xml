@@ -13,7 +13,7 @@
         android:src="@drawable/computer" />
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/user_name_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/avator"
@@ -25,10 +25,10 @@
         android:textColor="@color/black"/>
 
     <TextView
-        android:id="@+id/user_email"
+        android:id="@+id/user_email_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user_name"
+        android:layout_below="@+id/user_name_head"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="MyProfileName@gmail.com"

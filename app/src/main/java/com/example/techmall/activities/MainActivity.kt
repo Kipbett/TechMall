@@ -45,10 +45,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var toolbar:androidx.appcompat.widget.Toolbar
     lateinit var nav_view:NavigationView
     lateinit var drawer_layout:DrawerLayout
-    lateinit var usr_email:TextView
-    lateinit var usr_image:ImageView
-    lateinit var usr_name:TextView
-
 
     lateinit var categories:ArrayList<CategoreisModel>
     lateinit var products:ArrayList<ProductModel>
@@ -89,7 +85,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view = findViewById(R.id.nav_view)
         nav_view.setNavigationItemSelectedListener(this)
 
-        var drawer_toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        var drawer_toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(drawer_toggle)
         drawer_toggle.syncState()
 
@@ -99,9 +96,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerViewSuggested = findViewById(R.id.suggested_recyclerview)
         recyclerViewCategory = findViewById(R.id.categories_recycler)
         recyclerViewOffer = findViewById(R.id.offers_recycler)
-        usr_email = findViewById(R.id.user_email)
-        usr_image = findViewById(R.id.avator)
-        usr_name = findViewById(R.id.user_name)
 
 
         categories = ArrayList()
@@ -137,7 +131,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (ds in dataSnapshot.children){
                     var p_image = ds.child("p_imgurl").value.toString()
                     var p_name = ds.child("p_brand").value.toString() + " " + ds.child("p_model").value.toString()
-                    var p_price = ds.child("p_price").value.toString()
+                    var p_price = "KES ${ds.child("p_price").value.toString()}"
                     products.add(ProductModel(p_image, p_name, p_price))
                 }
                 productAdapter.notifyDataSetChanged()
@@ -145,25 +139,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             override fun onCancelled(db_error: DatabaseError) {
                 Toast.makeText(applicationContext, "Error: $db_error", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-
-        db_ref.child("users").child(auth.currentUser!!.uid).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(p0: DataSnapshot) {
-                for(ds in p0.children){
-                    var u_image = ds.child("user_image").value.toString()
-                    var user_name = ds.child("user_name").value.toString()
-                    var user_email = ds.child("user+email").value.toString()
-
-                    usr_email.text = user_email
-                    usr_name.text = user_name
-                    Glide.with(applicationContext).load(u_image).into(usr_image)
-                }
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         })

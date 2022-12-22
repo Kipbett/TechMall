@@ -35,6 +35,7 @@ class SmartPhoneActivity : AppCompatActivity() {
     lateinit var phone_condition: TextView
     lateinit var phone_call: MaterialButton
     lateinit var phone_message: MaterialButton
+    lateinit var phone_price: TextView
 
     private var REQUEST_CALL = 0
     private var SEND_MESSAGE = 1
@@ -61,6 +62,7 @@ class SmartPhoneActivity : AppCompatActivity() {
         phone_condition = findViewById(R.id.phone_condition)
         phone_call = findViewById(R.id.phone_call)
         phone_message = findViewById(R.id.phone_message)
+        phone_price = findViewById(R.id.phone_price)
 
         var image_url = intent.getStringExtra("p_image")
         var product_category = intent.getStringExtra("p_category")
@@ -77,14 +79,15 @@ class SmartPhoneActivity : AppCompatActivity() {
                         var p_condition = ds.child("p_condition").value.toString()
                         var battery = ds.child("p_battery").value.toString()
                         var uid = ds.child("p_uid").value.toString()
+                        var price = ds.child("p_price").value.toString()
                         db_ref.child("users").addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(p0: DataSnapshot) {
                                 for (data_s in p0.children){
                                     if (data_s.key.toString().equals(uid)){
                                         var p_number = data_s.child("user_phone").value.toString()
-                                        var u_email = data_s.child("user_email").value.toString()
+                                        var u_name = data_s.child("user_name").value.toString()
 
-                                        phone_supplier.text = u_email
+                                        phone_supplier.text = u_name
                                         number = p_number
 
                                     }
@@ -99,12 +102,12 @@ class SmartPhoneActivity : AppCompatActivity() {
 
                         Glide.with(applicationContext).load(p_image).into(phone_image)
                         phone_name.text = p_name
-
                         phone_display.text = display
                         phone_memory.text = memory
                         phone_battery.text = battery
                         phone_os.text = p_os
                         phone_condition.text = p_condition
+                        phone_price.text = "KES $price"
                     }
                 }
             }

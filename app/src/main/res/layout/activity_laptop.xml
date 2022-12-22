@@ -250,10 +250,39 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lin_comp_price"
+                android:layout_below="@+id/lin_comp_condition"
+                android:layout_marginTop="5dp"
+                android:padding="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Asking Price"
+                    android:id="@+id/comp_price"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/price_view"
+                    android:text="KSH 25000"
+                    android:layout_weight="3"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/lin_comp_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lin_comp_condition"
+                android:layout_below="@+id/lin_comp_price"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:padding="3dp">

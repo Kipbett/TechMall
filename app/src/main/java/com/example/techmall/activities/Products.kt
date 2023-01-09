@@ -27,7 +27,7 @@ class Products : AppCompatActivity() {
         setContentView(R.layout.activity_products)
 
         var category = intent.getStringExtra("category")
-        supportActionBar!!.title = category
+        supportActionBar?.title = category
         Toast.makeText(this, category, Toast.LENGTH_SHORT).show()
 
         recycler_view = findViewById(R.id.products_recycler)
@@ -46,9 +46,9 @@ class Products : AppCompatActivity() {
                 for (data_snapshot in p0.children){
                     var p_category = data_snapshot.child("p_category").value.toString()
                     if (p_category.equals(category)){
-                        var image = data_snapshot.child("p_imgurl").value.toString()
-                        var name = "${data_snapshot.child("p_brand").value.toString()} ${data_snapshot.child("p_model").value.toString()}"
-                        var price = "KSH. " + data_snapshot.child("p_price").value.toString()
+                        val image = data_snapshot.child("p_imgurl").value.toString()
+                        val name = "${data_snapshot.child("p_brand").value.toString()} ${data_snapshot.child("p_model").value.toString()}"
+                        val price = "KSH. " + data_snapshot.child("p_price").value.toString()
                         products_list.add(ProductModel(image, name, price))
                     }
                 }

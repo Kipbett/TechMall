@@ -36,26 +36,20 @@ import com.google.firebase.database.ValueEventListener
 import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    lateinit var category_txt:TextView
-    lateinit var recyclerViewCategory: RecyclerView
-    lateinit var offer_txt:TextView
-    lateinit var recyclerViewOffer:RecyclerView
     lateinit var suggested_txt:TextView
     lateinit var recyclerViewSuggested:RecyclerView
     lateinit var toolbar:androidx.appcompat.widget.Toolbar
     lateinit var nav_view:NavigationView
     lateinit var drawer_layout:DrawerLayout
+    var name_head:TextView? = null
+    var email_head:TextView? = null
 
-    lateinit var categories:ArrayList<CategoreisModel>
     lateinit var products:ArrayList<ProductModel>
 
     var longitude = 0.0
     var latitude = 0.0
 
     lateinit var productAdapter: ProductAdapter
-    lateinit var category_adapter: CategoryAdapter
-    lateinit var offer_adapter:OffersAdapter
-    lateinit var suggested_adapter:SuggestedAdapter
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
 
@@ -68,15 +62,48 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 //        var action_bar = supportActionBar
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION)){
 
             } else {
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                    LOCATION_PERMISSION_REQUEST_CODE)
             }
         } else {
             getCurrentLocation()
+        }
+
+        name_head = findViewById(R.id.user_name_head)
+        email_head = findViewById(R.id.user_email_head)
+
+        var uid = auth.currentUser?.uid
+
+        if (auth.currentUser?.uid != null){
+            db_ref.child("user").addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(p0: DataSnapshot) {
+                    for (ds in p0.children){
+                        var user_id = ds.key
+                        if(user_id.equals(uid)){
+                            val user_name = ds.child("user_name").value.toString()
+                            val user_email = ds.child("user_email").value.toString()
+
+                            name_head!!.text = user_name
+                            email_head!!.text = user_email
+                        }
+                    }
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                }
+
+            })
+        } else {
+            Toast.makeText(this, "User is null", Toast.LENGTH_SHORT).show()
+            name_head?.text = "Null"
+            email_head?.text = "Null"
         }
 
         toolbar = findViewById(R.id.tool_bar)
@@ -84,42 +111,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout = findViewById(R.id.drawer_layout)
         nav_view = findViewById(R.id.nav_view)
         nav_view.setNavigationItemSelectedListener(this)
-
         var drawer_toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(drawer_toggle)
         drawer_toggle.syncState()
-
-        category_txt = findViewById(R.id.categories)
-        offer_txt = findViewById(R.id.offers_tv)
         suggested_txt = findViewById(R.id.suggested_tv)
         recyclerViewSuggested = findViewById(R.id.suggested_recyclerview)
-        recyclerViewCategory = findViewById(R.id.categories_recycler)
-        recyclerViewOffer = findViewById(R.id.offers_recycler)
-
-
-        categories = ArrayList()
-        categories.add(CategoreisModel(R.drawable.computer, "Computers"))
-        categories.add(CategoreisModel(R.drawable.film, "Cameras"))
-        categories.add(CategoreisModel(R.drawable.truck, "Home Appliances"))
-        categories.add(CategoreisModel(R.drawable.computer, "Comp Accessories"))
-        categories.add(CategoreisModel(R.drawable.film, "Phones & Tablets"))
-        categories.add(CategoreisModel(R.drawable.computer, "Home Theatre"))
-
         products = ArrayList()
-
-        category_adapter = CategoryAdapter(this, categories)
-        offer_adapter = OffersAdapter(this, categories)
-        suggested_adapter = SuggestedAdapter(this, categories)
         productAdapter = ProductAdapter(this, products)
 
-        var layout_manager_category = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewCategory.layoutManager = layout_manager_category
-        recyclerViewCategory.adapter = category_adapter
-
-        var layout_manager_offers = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        recyclerViewOffer.layoutManager = layout_manager_offers
-        recyclerViewOffer.adapter = offer_adapter
 
         var layout_manager_suggested = GridLayoutManager(this, 2)
         recyclerViewSuggested.layoutManager = layout_manager_suggested
@@ -166,8 +166,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             LOCATION_PERMISSION_REQUEST_CODE -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)){
                     getCurrentLocation()
-                } else {
-
                 }
                 return
             }
@@ -187,7 +185,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId){
             R.id.search_menu -> Toast.makeText(this, "Search Item", Toast.LENGTH_LONG).show()
             R.id.cart_menu -> Toast.makeText(this, "Add Item To Cart", Toast.LENGTH_LONG).show()
-            R.id.login_menu -> Toast.makeText(this, "Login", Toast.LENGTH_LONG).show()
+            R.id.searchByName -> Toast.makeText(this, "Search By Item Name", Toast.LENGTH_LONG).show()
+            R.id.searchBySupplier -> Toast.makeText(this, "Search By Supplier", Toast.LENGTH_LONG).show()
             R.id.menu_seller -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
@@ -199,7 +198,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.computers ->{
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
                 var intent = Intent(this, Products::class.java)
                 intent.putExtra("category", "Computers")
                 startActivity(intent)
@@ -213,7 +211,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 finish()
             }
             R.id.smart_phones -> {
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
                 var intent = Intent(this, Products::class.java)
                 intent.putExtra("category", "Smart Phones")
                 startActivity(intent)
@@ -238,18 +235,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             else -> print("No Selection Made")
         }
-
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 
     override fun onBackPressed() {
-
         if(drawer_layout.isDrawerOpen(GravityCompat.START)){
             drawer_layout.isDrawerOpen(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
+        finish()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        finish()
     }
 }
 

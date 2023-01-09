@@ -6,17 +6,25 @@
         android:title="Add To Cart"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         app:showAsAction="always"/>
+
     <item android:title="Search"
         android:icon="@drawable/ic_baseline_search_24"
         app:showAsAction="ifRoom"
         android:id="@+id/search_menu"/>
-    <item android:title="Login"
-        android:icon="@drawable/ic_baseline_login_24"
-        app:showAsAction="never"
-        android:id="@+id/login_menu"/>
+
     <item android:title="Sell Item"
         android:icon="@drawable/ic_baseline_add_box"
         app:showAsAction="never"
         android:id="@+id/menu_seller"/>
+
+    <item android:id="@+id/searchByName"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="never"
+        android:title="Search By Name"/>
+
+    <item android:title="Search By Supplier"
+        android:id="@+id/searchBySupplier"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_search_24"/>
 
 </menu>

@@ -133,7 +133,7 @@ class LaptopActivity : AppCompatActivity() {
 
     private fun callUser(phone:String) {
         var intent = Intent(Intent.ACTION_CALL)
-        intent.setData(Uri.parse("tel:+$phone"))
+        intent.setData(Uri.parse("tel:$phone"))
         startActivity(intent)
     }
 
@@ -161,5 +161,12 @@ class LaptopActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(applicationContext, Products::class.java)
+        startActivity(intent)
+        finish()
     }
 }

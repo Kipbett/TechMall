@@ -32,11 +32,13 @@ class SellerProductsActivity : AppCompatActivity() {
     var auth = FirebaseAuth.getInstance()
     var db_ref = FirebaseDatabase.getInstance().reference
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_products)
 
         var user_id = auth.currentUser?.uid
+        var img_url = intent.getStringExtra("img_url_user")
 
 
         extended_button = findViewById(R.id.extended_floating_button)
@@ -113,6 +115,38 @@ class SellerProductsActivity : AppCompatActivity() {
                     }
 
                 })
+
+            db_ref.child("details").child(auth.currentUser!!.uid).addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    for (ds in p0.children) {
+                        var img = ds.child("p_imgurl").value.toString()
+                        if (img.equals(img_url)) {
+                            var ds_key = ds.key.toString()
+                            db_ref.child("details").child(auth.currentUser!!.uid)
+                                .child(ds_key).removeValue { error, _ ->
+                                    {
+                                        if (error != null) {
+                                            Toast.makeText(
+                                                applicationContext,
+                                                "Item Deleted Successfully",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        } else {
+                                            Toast.makeText(
+                                                application, "Item Not Deleted. \n Try Again Later",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Toast.makeText(applicationContext, "Database Error! \n $p0", Toast.LENGTH_LONG).show()
+                }
+            })
         }
 
     }
@@ -126,6 +160,7 @@ class SellerProductsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        var img_url = intent.getStringExtra("img_url")
         var user_id = auth.currentUser?.uid
         if(user_id == null){
             var intent = Intent(this, LoginActivity::class.java)
@@ -136,6 +171,7 @@ class SellerProductsActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
+        var img_url = intent.getStringExtra("img_url")
         var user_id = auth.currentUser?.uid
         if (user_id != null){
             db_ref.child("details").child("Smart Phones")
@@ -161,5 +197,10 @@ class SellerProductsActivity : AppCompatActivity() {
 
                 })
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        finish()
     }
 }

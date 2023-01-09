@@ -1,5 +1,6 @@
 package com.example.techmall.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.techmall.R
@@ -13,5 +14,12 @@ class EditActivity : AppCompatActivity() {
         val fragment_manager = supportFragmentManager
         val fragment_transaction = fragment_manager.beginTransaction()
         fragment_transaction.replace(R.id.frags_edit, CompEditFragment()).commit()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(applicationContext, SellerProductsActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

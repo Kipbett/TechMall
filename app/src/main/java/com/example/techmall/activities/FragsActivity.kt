@@ -1,5 +1,6 @@
 package com.example.techmall.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -37,5 +38,12 @@ class FragsActivity : AppCompatActivity() {
 //            fragment_transaction.replace(R.id.frags_layout, SmartPhones()).commit()
 //        }
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

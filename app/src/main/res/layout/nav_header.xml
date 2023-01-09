@@ -5,18 +5,10 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     android:gravity="bottom">
 
-    <ImageView
-        android:id="@+id/avator"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/computer" />
-
     <TextView
         android:id="@+id/user_name_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/avator"
         android:layout_marginTop="10dp"
         android:text="My Profile Name"
         android:gravity="center"

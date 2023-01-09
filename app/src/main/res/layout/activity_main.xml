@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:id="@+id/tool_bar"
-            android:background="@color/prim"
             android:elevation="5dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
@@ -32,38 +31,6 @@
             android:layout_height="match_parent"
             android:visibility="gone"
             android:id="@+id/fragment_container"/>
-
-        <TextView
-            android:id="@+id/categories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/categories"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/categories_recycler">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <TextView
-            android:id="@+id/offers_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/offers"
-            android:gravity="center"
-            android:padding="5dp"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/offers_recycler"/>
 
         <TextView
             android:id="@+id/suggested_tv"
@@ -84,8 +51,8 @@
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
         android:id="@+id/nav_view"
         android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/products_menu_drawer"/>
 </androidx.drawerlayout.widget.DrawerLayout>

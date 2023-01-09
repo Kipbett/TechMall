@@ -84,27 +84,6 @@ class NewUserActivity : AppCompatActivity() {
             } else if(TextUtils.isEmpty(email) || TextUtils.isEmpty(address) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(password) || TextUtils.isEmpty(u_name)){
                 Toast.makeText(this, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show()
             }else {
-
-//                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){
-//                    task ->
-//                    if (task.isSuccessful){
-//                        Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-//                        user = UserModel(email, address, phone, u_name)
-//                        var user_id = auth.currentUser?.uid
-//                        dbref.child("users").child(user_id!!).setValue(user).addOnCompleteListener(this){
-//                            task ->
-//                            if (task.isSuccessful){
-//                                Toast.makeText(this, "Data Saved Successfully", Toast.LENGTH_SHORT).show()
-//                            } else
-//                                Toast.makeText(this, "Data Saving Unsuccessful", Toast.LENGTH_SHORT).show()
-//                        }
-//                        var intent = Intent(this, SellerProductsActivity::class.java)
-//                        startActivity(intent)
-//                        finish()
-//                    } else
-//                        Toast.makeText(this, "Failed to create user", Toast.LENGTH_SHORT).show()
-//                }
-
                 var pd = ProgressDialog(this)
                 pd.setMessage("Saving Data")
                 pd.show()
@@ -170,5 +149,12 @@ class NewUserActivity : AppCompatActivity() {
             if (select_profile != null)
                 user_profile.setImageURI(select_profile)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

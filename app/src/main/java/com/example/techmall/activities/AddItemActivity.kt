@@ -1,5 +1,6 @@
 package com.example.techmall.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -27,5 +28,12 @@ class AddItemActivity : AppCompatActivity() {
             fragment_transaction.replace(R.id.frags_add, AddCompFragment()).commit()
         } else if (intent.getStringExtra("add_phone").toString().equals("Add Phone"))
             fragment_transaction.replace(R.id.frags_add, AddPhoneFragment()).commit()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(applicationContext, SellerProductsActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

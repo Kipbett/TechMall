@@ -18,6 +18,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var signup:TextView
     lateinit var user_email:EditText
     lateinit var user_password:EditText
+    lateinit var forgot:TextView
 
     var auth = FirebaseAuth.getInstance()
 
@@ -29,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         signup = findViewById(R.id.sign_up)
         user_email = findViewById(R.id.login_email)
         user_password = findViewById(R.id.password_login)
+        forgot = findViewById(R.id.forgot)
 
         login_btn.setOnClickListener(View.OnClickListener {
             var email = user_email.text.toString()
@@ -55,6 +57,12 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         })
+
+        forgot.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this, ResetPasswordActivity::class.java)
+            startActivity(intent)
+            finish()
+        })
     }
 
     override fun onStart() {
@@ -65,5 +73,12 @@ class LoginActivity : AppCompatActivity() {
             var intent = Intent(this, SellerProductsActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

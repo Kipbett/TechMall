@@ -46,6 +46,7 @@ class AddCompFragment : Fragment() {
     lateinit var comp_condition:EditText
     lateinit var comp_stock:EditText
     lateinit var comp_price:EditText
+    lateinit var comp_additional:EditText
     lateinit var add_btn:MaterialButton
     lateinit var cancel_btn:MaterialButton
 
@@ -82,6 +83,7 @@ class AddCompFragment : Fragment() {
         comp_stock = view.findViewById(R.id.new_comp_stock_et)
         add_btn = view.findViewById(R.id.add_comp)
         cancel_btn = view.findViewById(R.id.cancel_add_comp)
+        comp_additional = view.findViewById(R.id.new_comp_additional_text)
 
         comp_image.setOnClickListener(View.OnClickListener {
             var intent = Intent()
@@ -104,6 +106,7 @@ class AddCompFragment : Fragment() {
             var p_condition = comp_condition.text.toString()
             var p_price = comp_price.text.toString()
             var p_stock = comp_stock.text.toString()
+            var p_info = comp_additional.text.toString()
             if (TextUtils.isEmpty(p_brand) || TextUtils.isEmpty(p_model) || TextUtils.isEmpty(p_os) ||
                 TextUtils.isEmpty(p_processor) || TextUtils.isEmpty(p_memory) ||
                 TextUtils.isEmpty(p_display) || TextUtils.isEmpty(p_touch) || TextUtils.isEmpty(p_condition) ||
@@ -129,7 +132,7 @@ class AddCompFragment : Fragment() {
                                     img_url = img_uri.toString()
                                     products_model = AddProductModel(p_brand, p_model, p_os,
                                         p_processor, p_memory, p_display, p_touch,
-                                        p_condition, p_price, p_stock, auth.currentUser!!.uid, img_url, "Computers")
+                                        p_condition, p_price, p_stock, auth.currentUser!!.uid, img_url, "Computers", p_info)
                                     product_detail = PhoneDetails("$p_brand $p_model", img_url, p_stock, p_price)
                                     db_ref.child("products").push().setValue(products_model)
                                         .addOnCompleteListener(

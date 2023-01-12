@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -64,5 +65,32 @@ class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductAdapterVH> {
 
     override fun getItemCount(): Int {
         return product_list!!.size
+    }
+
+    fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString()
+                if (charSearch.isEmpty()) {
+                    product_list = product_list as ArrayList<ProductModel>
+                } else {
+                    val resultList = ArrayList<ProductModel>()
+                    for (row in product_list!!) {
+                        if (row.product_name!!.toLowerCase().contains(constraint.toString().toLowerCase())) {
+                            resultList.add(row)
+                        }
+                    }
+                    product_list = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = product_list
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                product_list = results?.values as ArrayList<ProductModel>
+                notifyDataSetChanged()
+            }
+        }
     }
 }

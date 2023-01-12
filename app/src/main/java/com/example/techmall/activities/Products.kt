@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.techmall.R
@@ -18,6 +20,7 @@ class Products : AppCompatActivity() {
     lateinit var recycler_view:RecyclerView
     lateinit var products_list:ArrayList<ProductModel>
     lateinit var products_adapter:ProductAdapter
+    lateinit var search_view:SearchView
 
     var db_ref = FirebaseDatabase.getInstance().reference
     lateinit var prod_details:PhoneDetails
@@ -66,13 +69,26 @@ class Products : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.products_menu, menu)
+        val search:MenuItem = menu!!.findItem(R.id.prod_search)
+        search_view = MenuItemCompat.getActionView(search) as SearchView
+        search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                search_view.clearFocus()
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                products_adapter.getFilter().filter(p0)
+                return true
+            }
+
+        })
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.prod_search -> Toast.makeText(this, "Search", Toast.LENGTH_LONG).show()
-            R.id.prod_cart -> Toast.makeText(this, "Cart", Toast.LENGTH_LONG).show()
             R.id.prod_profile -> Toast.makeText(this, "Profile", Toast.LENGTH_LONG).show()
         }
         onBackPressed()

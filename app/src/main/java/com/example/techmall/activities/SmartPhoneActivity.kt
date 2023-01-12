@@ -36,6 +36,8 @@ class SmartPhoneActivity : AppCompatActivity() {
     lateinit var phone_call: MaterialButton
     lateinit var phone_message: MaterialButton
     lateinit var phone_price: TextView
+    lateinit var phone_info:TextView
+    lateinit var phone_add_info:TextView
 
     private var REQUEST_CALL = 0
     private var SEND_MESSAGE = 1
@@ -63,6 +65,8 @@ class SmartPhoneActivity : AppCompatActivity() {
         phone_call = findViewById(R.id.phone_call)
         phone_message = findViewById(R.id.phone_message)
         phone_price = findViewById(R.id.phone_price)
+        phone_info = findViewById(R.id.phone_info)
+        phone_add_info = findViewById(R.id.phone_add_info)
 
         var image_url = intent.getStringExtra("p_image")
         var product_category = intent.getStringExtra("p_category")
@@ -80,6 +84,7 @@ class SmartPhoneActivity : AppCompatActivity() {
                         var battery = ds.child("p_battery").value.toString()
                         var uid = ds.child("p_uid").value.toString()
                         var price = ds.child("p_price").value.toString()
+                        val p_info = ds.child("p_additional").value.toString()
                         db_ref.child("users").addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(p0: DataSnapshot) {
                                 for (data_s in p0.children){
@@ -108,6 +113,12 @@ class SmartPhoneActivity : AppCompatActivity() {
                         phone_os.text = p_os
                         phone_condition.text = p_condition
                         phone_price.text = "KES $price"
+                        if(p_info == null){
+                            phone_add_info.visibility = View.GONE
+                            phone_info.visibility = View.GONE
+                        } else {
+                            phone_info.text = p_info
+                        }
                     }
                 }
             }
@@ -168,7 +179,7 @@ class SmartPhoneActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(applicationContext, Products::class.java)
+        val intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

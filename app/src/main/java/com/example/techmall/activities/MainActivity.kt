@@ -10,11 +10,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
+import android.widget.SearchView
+import android.widget.SearchView.OnQueryTextListener
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.MenuItemCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var drawer_layout:DrawerLayout
     var name_head:TextView? = null
     var email_head:TextView? = null
+    lateinit var search_view:SearchView
 
     lateinit var products:ArrayList<ProductModel>
 
@@ -132,7 +136,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     var p_image = ds.child("p_imgurl").value.toString()
                     var p_name = ds.child("p_brand").value.toString() + " " + ds.child("p_model").value.toString()
                     var p_price = "KES ${ds.child("p_price").value.toString()}"
-                    products.add(ProductModel(p_image, p_name, p_price))
+                    var prod_category = ds.child("p_category").value.toString()
+                    products.add(ProductModel(p_image, p_name, p_price, prod_category))
                 }
                 productAdapter.notifyDataSetChanged()
             }
@@ -178,15 +183,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)
+        val search:MenuItem = menu!!.findItem(R.id.search_menu)
+        search_view = MenuItemCompat.getActionView(search) as SearchView
+        search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                search_view.clearFocus()
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                productAdapter.getFilter().filter(p0)
+                return true
+            }
+
+        })
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         when (item.itemId){
-            R.id.search_menu -> Toast.makeText(this, "Search Item", Toast.LENGTH_LONG).show()
-            R.id.cart_menu -> Toast.makeText(this, "Add Item To Cart", Toast.LENGTH_LONG).show()
-            R.id.searchByName -> Toast.makeText(this, "Search By Item Name", Toast.LENGTH_LONG).show()
-            R.id.searchBySupplier -> Toast.makeText(this, "Search By Supplier", Toast.LENGTH_LONG).show()
+            R.id.search_menu -> {
+                Toast.makeText(this, "Search Item", Toast.LENGTH_LONG).show()
+            }
             R.id.menu_seller -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)

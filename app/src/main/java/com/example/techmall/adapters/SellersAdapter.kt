@@ -91,7 +91,7 @@ class SellersAdapter: RecyclerView.Adapter<SellersAdapter.SellersAdapterViewHold
                             if (img.equals(products.product_image)){
                                 ds_key = ds.key.toString()
                                 db_ref.child("products").child(ds_key).removeValue{
-                                    error, _ -> {
+                                    error, _ ->
                                         if (error != null){
                                             Toast.makeText(context, "Item Deleted Successfully", Toast.LENGTH_LONG).show()
                                             var intent = Intent(context, SellerProductsActivity::class.java)
@@ -102,7 +102,36 @@ class SellersAdapter: RecyclerView.Adapter<SellersAdapter.SellersAdapterViewHold
                                                 Toast.LENGTH_LONG).show()
                                         }
                                 }
-                                }
+
+//                                db_ref.child("details").child(fb_user.currentUser!!.uid).addValueEventListener(object: ValueEventListener {
+//                                    override fun onDataChange(p0: DataSnapshot) {
+//                                        for (ds in p0.children) {
+//                                            var img = ds.child("p_imgurl").value.toString()
+//                                            if (img.equals(products.product_image)) {
+//                                                var ds_key = ds.key.toString()
+//                                                db_ref.child("details").child(fb_user.currentUser!!.uid)
+//                                                    .child(ds_key).removeValue { error, _ ->
+//                                                        if (error != null) {
+//                                                            Toast.makeText(
+//                                                                context,
+//                                                                "Item Deleted Successfully",
+//                                                                Toast.LENGTH_LONG
+//                                                            ).show()
+//                                                        } else {
+//                                                            Toast.makeText(
+//                                                                context, "Item Not Deleted. \n Try Again Later",
+//                                                                Toast.LENGTH_LONG
+//                                                            ).show()
+//                                                        }
+//                                                    }
+//                                            }
+//                                        }
+//                                    }
+//
+//                                    override fun onCancelled(p0: DatabaseError) {
+//                                        Toast.makeText(context, "Database Error! \n $p0", Toast.LENGTH_LONG).show()
+//                                    }
+//                                })
                             }
                         }
                     }
@@ -112,37 +141,7 @@ class SellersAdapter: RecyclerView.Adapter<SellersAdapter.SellersAdapterViewHold
                     }
                 })
 
-                db_ref.child("details").child(fb_user.currentUser!!.uid).addValueEventListener(object: ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
-                        for (ds in p0.children) {
-                            var img = ds.child("p_imgurl").value.toString()
-                            if (img.equals(products.product_image)) {
-                                var ds_key = ds.key.toString()
-                                db_ref.child("details").child(fb_user.currentUser!!.uid)
-                                    .child(ds_key).removeValue { error, _ ->
-                                        {
-                                            if (error != null) {
-                                                Toast.makeText(
-                                                    context,
-                                                    "Item Deleted Successfully",
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            } else {
-                                                Toast.makeText(
-                                                    context, "Item Not Deleted. \n Try Again Later",
-                                                    Toast.LENGTH_LONG
-                                                ).show()
-                                            }
-                                        }
-                                    }
-                            }
-                        }
-                    }
 
-                    override fun onCancelled(p0: DatabaseError) {
-                        Toast.makeText(context, "Database Error! \n $p0", Toast.LENGTH_LONG).show()
-                    }
-                })
 
                 val intent = Intent(context, SellerProductsActivity::class.java)
                 context!!.startActivity(intent)

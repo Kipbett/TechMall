@@ -297,6 +297,24 @@
                     android:textSize="20sp"/>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Additional Info"
+                android:id="@+id/phone_add_info"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/phone_info"
+                android:text="Your Product Info"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
             <LinearLayout
                 android:id="@+id/lin_phone_button"
                 android:layout_width="match_parent"
@@ -313,7 +331,8 @@
                     android:layout_margin="5dp"
                     android:id="@+id/phone_call"
                     app:cornerRadius="20dp"
-                    android:text="call seller" />
+                    android:text="call seller"
+                    app:icon="@drawable/ic_baseline_local_phone_24"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:layout_width="wrap_content"
@@ -322,7 +341,8 @@
                     android:id="@+id/phone_message"
                     android:layout_weight="1"
                     app:cornerRadius="20dp"
-                    android:text="text seller" />
+                    android:text="text seller"
+                    app:icon="@drawable/ic_baseline_message_24"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

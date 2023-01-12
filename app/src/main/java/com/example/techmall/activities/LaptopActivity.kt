@@ -34,6 +34,8 @@ class LaptopActivity : AppCompatActivity() {
     lateinit var call_user: MaterialButton
     lateinit var message_user: MaterialButton
     lateinit var comp_price: TextView
+    lateinit var comp_info:TextView
+    lateinit var comp_add_info:TextView
 
     private var REQUEST_CALL = 1
     private var SEND_MESSAGE = 0
@@ -59,6 +61,8 @@ class LaptopActivity : AppCompatActivity() {
         call_user = findViewById(R.id.btn_comp_call)
         message_user = findViewById(R.id.btn_comp_message)
         comp_price = findViewById(R.id.price_view)
+        comp_info = findViewById(R.id.comp_info)
+        comp_add_info = findViewById(R.id.comp_add_info)
 
         var image = intent.getStringExtra("p_image")
         var category = intent.getStringExtra("p_category")
@@ -68,15 +72,16 @@ class LaptopActivity : AppCompatActivity() {
                 for (ds in p0.children){
                     var p_image = ds.child("p_imgurl").value.toString()
                     if (image.equals(p_image)){
-                        var p_name = "${ds.child("p_brand").value.toString() } ${ds.child("p_model").value.toString()}"
-                        var p_display = ds.child("p_display").value.toString()
-                        var p_storage = ds.child("p_memory").value.toString()
-                        var p_processor = ds.child("p_processor").value.toString()
-                        var p_os = ds.child("p_os").value.toString()
-                        var p_touch = ds.child("p_touch").value.toString()
-                        var p_condition = ds.child("p_condition").value.toString()
-                        var p_user = ds.child("p_uid").value.toString()
-                        var price = ds.child("p_price").value.toString()
+                        val p_name = "${ds.child("p_brand").value.toString() } ${ds.child("p_model").value.toString()}"
+                        val p_display = ds.child("p_display").value.toString()
+                        val p_storage = ds.child("p_memory").value.toString()
+                        val p_processor = ds.child("p_processor").value.toString()
+                        val p_os = ds.child("p_os").value.toString()
+                        val p_touch = ds.child("p_touch").value.toString()
+                        val p_condition = ds.child("p_condition").value.toString()
+                        val p_user = ds.child("p_uid").value.toString()
+                        val price = ds.child("p_price").value.toString()
+                        val p_info = ds.child("p_additional").value.toString()
                         dbref.child("users").addValueEventListener(object : ValueEventListener{
                             override fun onDataChange(p0: DataSnapshot) {
                                 for (ds in p0.children){
@@ -105,6 +110,12 @@ class LaptopActivity : AppCompatActivity() {
                         comp_touch.text = p_touch
                         comp_storage.text = p_storage
                         comp_price.text = "KES $price"
+                        if (p_info.equals("null")){
+                            comp_info.visibility = View.GONE
+                            comp_add_info.visibility = View.GONE
+                        } else {
+                            comp_info.text = p_info
+                        }
 
                     }
                 }
@@ -165,7 +176,7 @@ class LaptopActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(applicationContext, Products::class.java)
+        val intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

@@ -103,8 +103,8 @@ class NewUserActivity : AppCompatActivity() {
                                         if (task.isSuccessful){
                                             Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
                                             user = UserModel(email, address, phone, u_name, image_url)
-                                            var user_id = auth.currentUser?.uid
-                                            dbref.child("users").child(user_id!!).setValue(user).addOnCompleteListener(this){
+                                            var user_id = auth.currentUser!!.uid
+                                            dbref.child("users").child(user_id).setValue(user).addOnCompleteListener(this){
                                                     task ->
                                                 if (task.isSuccessful){
                                                     Toast.makeText(this, "Data Saved Successfully", Toast.LENGTH_SHORT).show()

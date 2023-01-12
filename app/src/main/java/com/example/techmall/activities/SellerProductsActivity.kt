@@ -93,19 +93,22 @@ class SellerProductsActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         if (user_id != null){
-            db_ref.child("details").child(auth.currentUser!!.uid)
+            db_ref.child("products")
                 .addValueEventListener(object : ValueEventListener{
                     override fun onDataChange(datasnapshot: DataSnapshot) {
                         product_list.clear()
                         for (data_snapshot in datasnapshot.children){
 //                            var id = data_snapshot.key
-                            var image = data_snapshot.child("product_image").value.toString()
-                            var name = data_snapshot.child("product_name").value.toString()
-                            var stock = data_snapshot.child("product_stock").value.toString()
-                            var price = data_snapshot.child("product_price").value.toString()
+                            if (user_id.equals(data_snapshot.child("p_uid").value.toString())){
+                                val image = data_snapshot.child("p_imgurl").value.toString()
+                                val name = "${data_snapshot.child("p_brand").value.toString()} " +
+                                        data_snapshot.child("p_model").value.toString()
+                                val stock = data_snapshot.child("p_stock").value.toString()
+                                val price = data_snapshot.child("p_price").value.toString()
 
-                            var details = PhoneDetails(name, image, stock, price)
-                            product_list.add(details)
+                                val details = PhoneDetails(name, image, stock, price)
+                                product_list.add(details)
+                            }
                         }
                         adapter.notifyDataSetChanged()
                     }
@@ -116,37 +119,7 @@ class SellerProductsActivity : AppCompatActivity() {
 
                 })
 
-            db_ref.child("details").child(auth.currentUser!!.uid).addValueEventListener(object: ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    for (ds in p0.children) {
-                        var img = ds.child("p_imgurl").value.toString()
-                        if (img.equals(img_url)) {
-                            var ds_key = ds.key.toString()
-                            db_ref.child("details").child(auth.currentUser!!.uid)
-                                .child(ds_key).removeValue { error, _ ->
-                                    {
-                                        if (error != null) {
-                                            Toast.makeText(
-                                                applicationContext,
-                                                "Item Deleted Successfully",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        } else {
-                                            Toast.makeText(
-                                                application, "Item Not Deleted. \n Try Again Later",
-                                                Toast.LENGTH_LONG
-                                            ).show()
-                                        }
-                                    }
-                                }
-                        }
-                    }
-                }
 
-                override fun onCancelled(p0: DatabaseError) {
-                    Toast.makeText(applicationContext, "Database Error! \n $p0", Toast.LENGTH_LONG).show()
-                }
-            })
         }
 
     }
@@ -174,19 +147,21 @@ class SellerProductsActivity : AppCompatActivity() {
         var img_url = intent.getStringExtra("img_url")
         var user_id = auth.currentUser?.uid
         if (user_id != null){
-            db_ref.child("details").child("Smart Phones")
-                .child(auth.currentUser!!.uid).addValueEventListener(object: ValueEventListener{
+            db_ref.child("products").addValueEventListener(object: ValueEventListener{
                     override fun onDataChange(datasnapshot: DataSnapshot) {
                         product_list.clear()
                         for (data_snapshot in datasnapshot.children){
 //                            var id = data_snapshot.key
-                            var image = data_snapshot.child("phone_image").value.toString()
-                            var name = data_snapshot.child("phone_name").value.toString()
-                            var stock = data_snapshot.child("phone_stock").value.toString()
-                            var price = data_snapshot.child("phone_price").value.toString()
+                            if (img_url.equals(data_snapshot.child("p_imgurl").value.toString())){
+                                val image = data_snapshot.child("p_imgurl").value.toString()
+                                val name = "${data_snapshot.child("p_brand").value.toString()} " +
+                                        data_snapshot.child("p_model").value.toString()
+                                val stock = data_snapshot.child("p_stock").value.toString()
+                                val price = data_snapshot.child("p_price").value.toString()
 
-                            var details = PhoneDetails(name, image, stock, price)
-                            product_list.add(details)
+                                val details = PhoneDetails(name, image, stock, price)
+                                product_list.add(details)
+                            }
                         }
                         adapter.notifyDataSetChanged()
                     }

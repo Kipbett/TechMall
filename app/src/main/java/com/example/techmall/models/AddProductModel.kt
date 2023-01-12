@@ -14,6 +14,7 @@ class AddProductModel {
     var p_uid: String? = null
     var p_imgurl:String? = null
     var p_category:String? = null
+    var p_additional:String? = null
 
     constructor(
         c_brand: String?,
@@ -28,7 +29,8 @@ class AddProductModel {
         c_stock: String?,
         c_uid: String?,
         c_imgurl: String?,
-        c_category:String?
+        c_category:String?,
+        p_additional:String?
     ) {
         this.p_brand = c_brand
         this.p_model = c_model
@@ -43,6 +45,7 @@ class AddProductModel {
         this.p_imgurl = c_imgurl
         this.p_uid = c_uid
         this.p_category = c_category
+        this.p_additional = p_additional
     }
 
     constructor()

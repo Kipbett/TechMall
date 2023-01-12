@@ -180,6 +180,22 @@
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/new_comp_additional"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/new_comp_price">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Additional Information \n Include Exact location"
+                    android:gravity="center"
+                    android:id="@+id/new_comp_additional_text"
+                    android:singleLine="false"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

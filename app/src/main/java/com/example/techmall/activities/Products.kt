@@ -14,6 +14,9 @@ import com.example.techmall.R
 import com.example.techmall.adapters.ProductAdapter
 import com.example.techmall.models.PhoneDetails
 import com.example.techmall.models.ProductModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.database.*
 
 class Products : AppCompatActivity() {
@@ -21,6 +24,7 @@ class Products : AppCompatActivity() {
     lateinit var products_list:ArrayList<ProductModel>
     lateinit var products_adapter:ProductAdapter
     lateinit var search_view:SearchView
+    lateinit var ad_view:AdView
 
     var db_ref = FirebaseDatabase.getInstance().reference
     lateinit var prod_details:PhoneDetails
@@ -28,6 +32,19 @@ class Products : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products)
+
+        ad_view = findViewById(R.id.adViewHome)
+
+        val ab = supportActionBar
+        ab?.setDisplayShowHomeEnabled(true)
+        ab?.setDisplayHomeAsUpEnabled(true)
+
+        MobileAds.initialize(
+            this
+        ) { }
+
+        val adRequest = AdRequest.Builder().build()
+        ad_view.loadAd(adRequest)
 
         var category = intent.getStringExtra("category")
         supportActionBar?.title = category
@@ -39,7 +56,7 @@ class Products : AppCompatActivity() {
 
         products_adapter = ProductAdapter(this, products_list)
 
-        var layout_manager = GridLayoutManager(this, 2)
+        var layout_manager = GridLayoutManager(this, 3)
         recycler_view.layoutManager = layout_manager
         recycler_view.adapter = products_adapter
 
@@ -89,7 +106,6 @@ class Products : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.prod_search -> Toast.makeText(this, "Search", Toast.LENGTH_LONG).show()
-            R.id.prod_profile -> Toast.makeText(this, "Profile", Toast.LENGTH_LONG).show()
         }
         onBackPressed()
         return super.onOptionsItemSelected(item)
@@ -100,5 +116,10 @@ class Products : AppCompatActivity() {
         var intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }

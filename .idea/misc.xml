@@ -8,6 +8,8 @@
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/card_bg.xml" value="0.1945" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/et_bg.xml" value="0.22" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.172" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/ic_baseline_wifi_24.xml" value="0.1735" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/ic_launcher_tech_background.xml" value="0.1735" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/img_bg.xml" value="0.22" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_add_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_add_items.xml" value="0.22447916666666667" />
@@ -19,9 +21,11 @@
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_new_user.xml" value="0.25" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_product_review.xml" value="0.2" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_products.xml" value="0.2" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_profile.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_reset_password.xml" value="0.22" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_seller_products.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_smart_phone.xml" value="0.21041666666666667" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_user_profile.xml" value="0.21041666666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/categories_layout.xml" value="0.53875" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/edit_dialog.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/fragment_add_comp.xml" value="0.21041666666666667" />
@@ -39,6 +43,8 @@
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/menu/home_menu.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/menu/products_menu.xml" value="0.22" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/menu/products_menu_drawer.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/menu/user_menu.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/menu/user_profile_menu.xml" value="0.22447916666666667" />
       </map>
     </option>
   </component>

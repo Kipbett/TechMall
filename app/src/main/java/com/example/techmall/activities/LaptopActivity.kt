@@ -1,9 +1,11 @@
 package com.example.techmall.activities
 
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
@@ -11,6 +13,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.techmall.R
 import com.google.android.material.button.MaterialButton
@@ -18,7 +22,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 
 class LaptopActivity : AppCompatActivity() {
 
@@ -36,6 +39,8 @@ class LaptopActivity : AppCompatActivity() {
     lateinit var comp_price: TextView
     lateinit var comp_info:TextView
     lateinit var comp_add_info:TextView
+
+    lateinit var p_name:String
 
     private var REQUEST_CALL = 1
     private var SEND_MESSAGE = 0
@@ -72,7 +77,7 @@ class LaptopActivity : AppCompatActivity() {
                 for (ds in p0.children){
                     var p_image = ds.child("p_imgurl").value.toString()
                     if (image.equals(p_image)){
-                        val p_name = "${ds.child("p_brand").value.toString() } ${ds.child("p_model").value.toString()}"
+                        p_name = "${ds.child("p_brand").value.toString() } ${ds.child("p_model").value.toString()}"
                         val p_display = ds.child("p_display").value.toString()
                         val p_storage = ds.child("p_memory").value.toString()
                         val p_processor = ds.child("p_processor").value.toString()
@@ -136,13 +141,15 @@ class LaptopActivity : AppCompatActivity() {
     }
 
     private fun sendMessage(phone:String) {
+//        checkForPermissions(android.Manifest.permission.SEND_SMS, "Send Message", SEND_MESSAGE)
         var intent = Intent(applicationContext, MainActivity::class.java)
         var pi = PendingIntent.getActivity(applicationContext, 0, intent, 0)
         var sms = SmsManager.getDefault()
-        sms.sendTextMessage(phone, null, "Hell, I Want to Buy Your Product", pi, null)
+        sms.sendTextMessage(phone, null, "Hello, I Want to Buy Your Product $p_name.\nLet's Get In Touch", pi, null)
     }
 
     private fun callUser(phone:String) {
+//        checkForPermissions(android.Manifest.permission.CALL_PHONE, "Call", REQUEST_CALL)
         var intent = Intent(Intent.ACTION_CALL)
         intent.setData(Uri.parse("tel:$phone"))
         startActivity(intent)
@@ -180,4 +187,31 @@ class LaptopActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+//    private fun checkForPermissions(permission: String, name: String, request_code:Int){
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+//            when{
+//                ContextCompat.checkSelfPermission(applicationContext, permission) == PackageManager.PERMISSION_GRANTED -> {
+//
+//                }
+//                shouldShowRequestPermissionRationale(permission) -> showDialog(permission, name, request_code)
+//
+//                else -> ActivityCompat.requestPermissions(this, arrayOf(permission), request_code)
+//            }
+//        }
+//    }
+//
+//    private fun showDialog(permission: String, name: String, request_code: Int){
+//        val builder = AlertDialog.Builder(this)
+//        builder.apply {
+//            setMessage("Permission to access $name is required")
+//            setTitle("Permission Required")
+//            setPositiveButton("Ok"){
+//                dialog, which ->
+//                ActivityCompat.requestPermissions(this@LaptopActivity, arrayOf(permission), request_code)
+//            }
+//            val dialog = builder.show()
+//            dialog.show()
+//        }
+//    }
 }

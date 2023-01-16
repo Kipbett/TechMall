@@ -1,9 +1,11 @@
 package com.example.techmall.activities
 
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.SmsManager
@@ -11,6 +13,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.techmall.R
 import com.example.techmall.models.SendCall
@@ -139,12 +143,14 @@ class SmartPhoneActivity : AppCompatActivity() {
     }
 
     private fun callUser(p_number:String) {
+//        checkForPermissions(android.Manifest.permission.CALL_PHONE, "Call", SEND_MESSAGE)
         var intent = Intent(Intent.ACTION_CALL)
         intent.data = Uri.parse("tel:$p_number")
         startActivity(intent)
     }
 
     private fun messageUser(p_number:String) {
+//        checkForPermissions(android.Manifest.permission.SEND_SMS, "Send Message", SEND_MESSAGE)
         var intent = Intent(applicationContext, MainActivity::class.java)
         var pi = PendingIntent.getActivity(applicationContext, 0, intent, 0)
         var sms = SmsManager.getDefault()
@@ -183,4 +189,31 @@ class SmartPhoneActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+//    private fun checkForPermissions(permission: String, name: String, request_code:Int){
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+//            when{
+//                ContextCompat.checkSelfPermission(applicationContext, permission) == PackageManager.PERMISSION_GRANTED -> {
+//
+//                }
+//                shouldShowRequestPermissionRationale(permission) -> showDialog(permission, name, request_code)
+//
+//                else -> ActivityCompat.requestPermissions(this, arrayOf(permission), request_code)
+//            }
+//        }
+//    }
+//
+//    private fun showDialog(permission: String, name: String, request_code: Int){
+//        val builder = AlertDialog.Builder(this)
+//        builder.apply {
+//            setMessage("Permission to access $name is required")
+//            setTitle("Permission Required")
+//            setPositiveButton("Ok"){
+//                    dialog, which ->
+//                ActivityCompat.requestPermissions(this@SmartPhoneActivity, arrayOf(permission), request_code)
+//            }
+//            val dialog = builder.show()
+//            dialog.show()
+//        }
+//    }
 }

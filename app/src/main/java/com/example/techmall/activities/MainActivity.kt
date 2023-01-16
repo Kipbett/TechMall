@@ -1,42 +1,40 @@
 package com.example.techmall.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
 import android.widget.SearchView
-import android.widget.SearchView.OnQueryTextListener
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.MenuItemCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.techmall.R
-import com.example.techmall.adapters.CategoryAdapter
-import com.example.techmall.adapters.OffersAdapter
 import com.example.techmall.adapters.ProductAdapter
-import com.example.techmall.adapters.SuggestedAdapter
-import com.example.techmall.models.CategoreisModel
 import com.example.techmall.models.ProductModel
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     lateinit var suggested_txt:TextView
@@ -55,7 +53,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     lateinit var productAdapter: ProductAdapter
 
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1
+    private val REQUEST_CALL = 1
+    private val REQUEST_SMS = 0
+
+//    var interstitialAd: InterstitialAd? = null
+    lateinit var adRequest: AdRequest
 
     var db_ref = FirebaseDatabase.getInstance().reference
     var auth = FirebaseAuth.getInstance()
@@ -64,21 +66,87 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+//            != PackageManager.PERMISSION_GRANTED) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.CALL_PHONE)){
+//
+//            } else {
+//                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CALL_PHONE),
+//                    REQUEST_CALL)
+//            }
+//        }
+//
+//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS)
+//            != PackageManager.PERMISSION_GRANTED) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.SEND_SMS)){
+//
+//            } else {
+//                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.SEND_SMS),
+//                    REQUEST_SMS)
+//            }
+//        }
+
+        checkForPermissions(android.Manifest.permission.CALL_PHONE, "Access Phone", REQUEST_CALL)
+        checkForPermissions(android.Manifest.permission.SEND_SMS, "Access Messages", REQUEST_SMS)
 //        var action_bar = supportActionBar
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION)){
+        MobileAds.initialize(this)
+        adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712",
+            adRequest, object:InterstitialAdLoadCallback(){
+                override fun onAdFailedToLoad(p0: LoadAdError) {
+                    super.onAdFailedToLoad(p0)
+                    Toast.makeText(applicationContext, "Ad Failed To Load $p0", Toast.LENGTH_LONG).show()
+                }
 
-            } else {
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                    LOCATION_PERMISSION_REQUEST_CODE)
+                override fun onAdLoaded(p0: InterstitialAd) {
+                    super.onAdLoaded(p0)
+                    p0.show(applicationContext as Activity)
+                    Toast.makeText(applicationContext, "Ad Loaded", Toast.LENGTH_LONG).show()
+
+                    p0.fullScreenContentCallback = object : FullScreenContentCallback(){
+                        override fun onAdClicked() {
+                            super.onAdClicked()
+                            Toast.makeText(applicationContext, "Ad Clicked", Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent()
+                            Toast.makeText(applicationContext, "Ad Dismissed", Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                            super.onAdFailedToShowFullScreenContent(p0)
+                            Toast.makeText(applicationContext, "Ad Failed To show \n$p0", Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onAdImpression() {
+                            super.onAdImpression()
+                            Toast.makeText(applicationContext, "Ad Impression Count", Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onAdShowedFullScreenContent() {
+                            super.onAdShowedFullScreenContent()
+                        }
+                    }
+                }
             }
-        } else {
-            getCurrentLocation()
-        }
+        )
+
+
+//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+//            != PackageManager.PERMISSION_GRANTED &&
+//            ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+//            != PackageManager.PERMISSION_GRANTED) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.ACCESS_FINE_LOCATION)){
+//
+//            } else {
+//                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+//                    LOCATION_PERMISSION_REQUEST_CODE)
+//            }
+//        } else {
+//            getCurrentLocation()
+//        }
 
         name_head = findViewById(R.id.user_name_head)
         email_head = findViewById(R.id.user_email_head)
@@ -125,7 +193,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         productAdapter = ProductAdapter(this, products)
 
 
-        var layout_manager_suggested = GridLayoutManager(this, 2)
+        var layout_manager_suggested = GridLayoutManager(this, 3)
         recyclerViewSuggested.layoutManager = layout_manager_suggested
         recyclerViewSuggested.adapter = productAdapter
 
@@ -137,7 +205,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     var p_name = ds.child("p_brand").value.toString() + " " + ds.child("p_model").value.toString()
                     var p_price = "KES ${ds.child("p_price").value.toString()}"
                     var prod_category = ds.child("p_category").value.toString()
-                    products.add(ProductModel(p_image, p_name, p_price, prod_category))
+                    products.add(ProductModel(p_image, p_name, p_price))
                 }
                 productAdapter.notifyDataSetChanged()
             }
@@ -150,16 +218,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getCurrentLocation() {
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        if (lastKnownLocation != null) {
-            latitude = lastKnownLocation.latitude
-            longitude = lastKnownLocation.longitude
-            // Do something with the location
-        }
-    }
+//    @SuppressLint("MissingPermission")
+//    private fun getCurrentLocation() {
+//        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//        val lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+//        if (lastKnownLocation != null) {
+//            latitude = lastKnownLocation.latitude
+//            longitude = lastKnownLocation.longitude
+//            // Do something with the location
+//        }
+//    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -167,17 +235,68 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
-            LOCATION_PERMISSION_REQUEST_CODE -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)){
-                    getCurrentLocation()
+//        when(requestCode){
+//            REQUEST_CALL -> {
+//                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                    Toast.makeText(applicationContext, "Call Permission Granted", Toast.LENGTH_SHORT)
+//                } else {
+//                    checkForPermissions(android.Manifest.permission.CALL_PHONE, "Access Phone", REQUEST_CALL)
+//                    Toast.makeText(applicationContext, "Call Did not Go Through, Try again Later", Toast.LENGTH_SHORT)
+//                }
+//            }
+//
+//            REQUEST_SMS -> {
+//                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//
+//                    Toast.makeText(applicationContext, "Messages Permission Granted", Toast.LENGTH_SHORT)
+//                } else {
+//                    checkForPermissions(android.Manifest.permission.CALL_PHONE, "Access Phone", REQUEST_SMS)
+//                    Toast.makeText(applicationContext, "Message Not Sent, Try again Later", Toast.LENGTH_SHORT)
+//                }
+//            }
+//        }
+
+        if (requestCode == REQUEST_CALL){
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(applicationContext, "Call Permission Granted", Toast.LENGTH_SHORT)
+                } else {
+                    checkForPermissions(android.Manifest.permission.CALL_PHONE, "Access Phone", REQUEST_CALL)
+                    Toast.makeText(applicationContext, "Call Did not Go Through, Try again Later", Toast.LENGTH_SHORT)
                 }
-                return
-            }
+        }
 
-            else -> {
+        if (requestCode == REQUEST_SMS){
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(applicationContext, "Messages Permission Granted", Toast.LENGTH_SHORT)
+                } else {
+                    checkForPermissions(android.Manifest.permission.CALL_PHONE, "Access Phone", REQUEST_SMS)
+                    Toast.makeText(applicationContext, "Message Not Sent, Try again Later", Toast.LENGTH_SHORT)
+                }
+        }
 
+    }
+
+    private fun checkForPermissions(permission: String, name: String, request_code:Int){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            when{
+                ContextCompat.checkSelfPermission(applicationContext, permission) == PackageManager.PERMISSION_GRANTED -> {}
+                shouldShowRequestPermissionRationale(permission) -> showDialog(permission, name, request_code)
+                else -> ActivityCompat.requestPermissions(this, arrayOf(permission), request_code)
             }
+        }
+    }
+
+    private fun showDialog(permission: String, name: String, request_code: Int){
+        val builder = AlertDialog.Builder(this)
+        builder.apply {
+            setMessage("Permission to access $name is required")
+            setTitle("Permission Required")
+            setPositiveButton("Ok"){
+                    dialog, which ->
+                ActivityCompat.requestPermissions(this@MainActivity, arrayOf(permission), request_code)
+            }
+            val dialog = builder.show()
+            dialog.show()
         }
     }
 
@@ -222,33 +341,58 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
                 finish()
             }
-            R.id.gaming_consoles -> {
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
-                var intent = Intent(this, Products::class.java)
-                intent.putExtra("category", "Game Consoles")
-                startActivity(intent)
-                finish()
-            }
+//            R.id.gaming_consoles -> {
+//                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+//                var intent = Intent(this, Products::class.java)
+//                intent.putExtra("category", "Game Consoles")
+//                startActivity(intent)
+//                finish()
+//            }
             R.id.smart_phones -> {
                 var intent = Intent(this, Products::class.java)
                 intent.putExtra("category", "Smart Phones")
                 startActivity(intent)
                 finish()
             }
-            R.id.home_appliances -> {
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
-                var intent = Intent(this, Products::class.java)
-                intent.putExtra("category", "Home Appliances")
-                startActivity(intent)
-                finish()
+//            R.id.home_appliances -> {
+//                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+//                var intent = Intent(this, Products::class.java)
+//                intent.putExtra("category", "Home Appliances")
+//                startActivity(intent)
+//                finish()
+//            }
+//            R.id.home_theaters -> {
+//                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+//                var intent = Intent(this, Products::class.java)
+//                intent.putExtra("category", "Home Theaters")
+//                startActivity(intent)
+//                finish()
+//            }
+
+            R.id.user_sell -> {
+                if(auth.currentUser?.uid != null){
+                    val intent = Intent(applicationContext, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(applicationContext, SellerProductsActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
-            R.id.home_theaters -> {
-                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
-                var intent = Intent(this, Products::class.java)
-                intent.putExtra("category", "Home Theaters")
-                startActivity(intent)
-                finish()
+
+            R.id.user_profile -> {
+                if (auth.currentUser?.uid != null){
+                    val intent = Intent(applicationContext, UserProfileActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(applicationContext, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
+
             R.id.logout -> {
                 FirebaseAuth.getInstance().signOut()
             }
@@ -270,6 +414,52 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onStop() {
         super.onStop()
         finish()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MobileAds.initialize(this)
+        adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712",
+            adRequest, object:InterstitialAdLoadCallback(){
+                override fun onAdFailedToLoad(p0: LoadAdError) {
+                    super.onAdFailedToLoad(p0)
+                    Toast.makeText(applicationContext, "Ad Failed To Load $p0", Toast.LENGTH_LONG).show()
+                }
+
+                override fun onAdLoaded(p0: InterstitialAd) {
+                    super.onAdLoaded(p0)
+                    p0.show(applicationContext as Activity)
+                    Toast.makeText(applicationContext, "Ad Loaded", Toast.LENGTH_LONG).show()
+
+                    p0.fullScreenContentCallback = object : FullScreenContentCallback(){
+                        override fun onAdClicked() {
+                            super.onAdClicked()
+                            Toast.makeText(applicationContext, "Ad Clicked", Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onAdDismissedFullScreenContent() {
+                            super.onAdDismissedFullScreenContent()
+                            Toast.makeText(applicationContext, "Ad Dismissed", Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                            super.onAdFailedToShowFullScreenContent(p0)
+                            Toast.makeText(applicationContext, "Ad Failed To show \n$p0", Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onAdImpression() {
+                            super.onAdImpression()
+                            Toast.makeText(applicationContext, "Ad Impression Count", Toast.LENGTH_LONG).show()
+                        }
+
+                        override fun onAdShowedFullScreenContent() {
+                            super.onAdShowedFullScreenContent()
+                        }
+                    }
+                }
+            }
+        )
     }
 }
 

@@ -10,17 +10,17 @@
             android:icon="@drawable/ic_baseline_phone_android_24"
             android:title="Smart Phones"/>
 
-        <item android:id="@+id/gaming_consoles"
-            android:icon="@drawable/ic_baseline_videogame_asset_24"
-            android:title="Gaming Consoles"/>
+<!--        <item android:id="@+id/gaming_consoles"-->
+<!--            android:icon="@drawable/ic_baseline_videogame_asset_24"-->
+<!--            android:title="Gaming Consoles"/>-->
 
-        <item android:id="@+id/home_appliances"
-            android:icon="@drawable/ic_baseline_home_work_24"
-            android:title="Home Appliances"/>
+<!--        <item android:id="@+id/home_appliances"-->
+<!--            android:icon="@drawable/ic_baseline_home_work_24"-->
+<!--            android:title="Home Appliances"/>-->
 
-        <item android:id="@+id/home_theaters"
-            android:icon="@drawable/ic_baseline_radio_24"
-            android:title="Home Theaters"/>
+<!--        <item android:id="@+id/home_theaters"-->
+<!--            android:icon="@drawable/ic_baseline_radio_24"-->
+<!--            android:title="Home Theaters"/>-->
     </group>
 
     <item android:title="Actions">
@@ -28,11 +28,17 @@
             <item android:id="@+id/about"
                 android:title="About"/>
 
-            <item android:id="@+id/share"
-                android:title="Share"/>
+            <item android:id="@+id/user_profile"
+                android:title="Your Profile"/>
 
-            <item android:id="@+id/settings"
-                android:title="Settings"/>
+            <item android:title="Sell Item"
+                android:id="@+id/user_sell"/>
+
+<!--            <item android:id="@+id/share"-->
+<!--                android:title="Share"/>-->
+
+<!--            <item android:id="@+id/settings"-->
+<!--                android:title="Settings"/>-->
 
             <item android:id="@+id/logout"
                 android:title="Logout"/>

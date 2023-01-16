@@ -9,8 +9,4 @@
         app:actionViewClass="android.widget.SearchView"
         android:iconTint="@color/white"/>
 
-    <item android:title="Profile"
-        android:icon="@drawable/ic_baseline_login_24"
-        android:id="@+id/prod_profile"
-        app:showAsAction="never"/>
 </menu>

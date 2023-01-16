@@ -3,6 +3,8 @@ package com.example.techmall.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -40,6 +42,9 @@ class SellerProductsActivity : AppCompatActivity() {
         var user_id = auth.currentUser?.uid
         var img_url = intent.getStringExtra("img_url_user")
 
+        val ab = supportActionBar
+        ab?.setDisplayShowHomeEnabled(true)
+        ab?.setDisplayHomeAsUpEnabled(true)
 
         extended_button = findViewById(R.id.extended_floating_button)
         fab_add_comp = findViewById(R.id.fab_add_comp)
@@ -177,5 +182,27 @@ class SellerProductsActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         finish()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.user_men -> {
+                val intent = Intent(applicationContext, UserProfileActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.user_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }

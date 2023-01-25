@@ -25,14 +25,12 @@
 
     <item android:title="Actions">
         <menu>
-            <item android:id="@+id/about"
-                android:title="About"/>
-
-            <item android:id="@+id/user_profile"
-                android:title="Your Profile"/>
 
             <item android:title="Sell Item"
                 android:id="@+id/user_sell"/>
+
+            <item android:id="@+id/about"
+                android:title="About"/>
 
 <!--            <item android:id="@+id/share"-->
 <!--                android:title="Share"/>-->

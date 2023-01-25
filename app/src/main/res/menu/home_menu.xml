@@ -8,6 +8,11 @@
         android:id="@+id/search_menu"
         app:actionViewClass="android.widget.SearchView" />
 
+    <item android:title="Profile"
+        android:icon="@drawable/ic_baseline_supervised_user_circle_24"
+        android:id="@+id/home_user"
+        app:showAsAction="always"/>
+
 
     <item android:title="Sell Item"
         android:icon="@drawable/ic_baseline_add_box"

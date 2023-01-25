@@ -10,7 +10,9 @@
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.172" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/ic_baseline_wifi_24.xml" value="0.1735" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/ic_launcher_tech_background.xml" value="0.1735" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/image.xml" value="0.1735" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/img_bg.xml" value="0.22" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/drawable/round_image.xml" value="0.1735" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_add_item.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_add_items.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_edit.xml" value="0.1" />
@@ -25,6 +27,7 @@
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_reset_password.xml" value="0.22" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_seller_products.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_smart_phone.xml" value="0.21041666666666667" />
+        <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_splash.xml" value="0.22" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/activity_user_profile.xml" value="0.21041666666666667" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/categories_layout.xml" value="0.53875" />
         <entry key="..\:/Users/Wolf/AndroidStudioProjects/TechMall/app/src/main/res/layout/edit_dialog.xml" value="0.22447916666666667" />
